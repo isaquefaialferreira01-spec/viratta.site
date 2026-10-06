@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 70" fill="none">
+  <path d="M14 43L28 17L42 43H14Z" stroke="#FFFFFF" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="28" cy="33" r="5" stroke="#E4E4E7" stroke-width="1.8"/>
+  <text x="56" y="32" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14.5" font-weight="800" letter-spacing="2.5">OFFICINA</text>
+  <text x="57" y="47" fill="#A1A1AA" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="8.5" font-weight="600" letter-spacing="3.5">SPEZIAL GARAGE</text>
+</svg>
