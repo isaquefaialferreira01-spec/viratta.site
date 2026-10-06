@@ -50,58 +50,34 @@ export const STRUCTURAL_NUMBERS = [
 
 export const VIRATTA_SERVICES = [
   {
-    id: "01",
-    name: "CONTENT CREATION",
-    short: "Conteúdo que chama atenção e comunica valor.",
-    description:
-      "Criação estratégica de conteúdo pensada para reter atenção, construir autoridade e elevar a percepção de valor do negócio em cada ponto de contato.",
-    tag: "Atenção & Valor",
-    deliverables: ["Vídeos curtos institucionais", "Narrativas de marca", "Carrosséis estratégicos", "Roteiros focados em posicionamento"],
-  },
-  {
-    id: "02",
+    number: "01",
     name: "SOCIAL MEDIA",
-    short: "Presença digital com estratégia e consistência.",
     description:
-      "Planejamento, direção de arte e gestão de presença digital para que sua marca se comunique com regularidade sem parecer improvisada.",
-    tag: "Constância & Tom",
-    deliverables: ["Linha editorial autêntica", "Calendário e curadoria", "Gestão de feed e stories", "Monitoramento de posicionamento"],
+      "Estratégia, planejamento e gestão para construir uma presença digital consistente e profissional.",
   },
   {
-    id: "03",
-    name: "FILMMAKER / AUDIOVISUAL",
-    short: "Imagem profissional muda percepção.",
+    number: "02",
+    name: "FILMMAKER",
     description:
-      "Produção audiovisual com padrão cinematográfico para empresas, produtos, serviços, campanhas e comunicação institucional que transmitem autoridade imediata.",
-    tag: "Cinema & Autoridade",
-    deliverables: ["Captação 4K em locação", "Edição e color grading profissional", "Design de som imersivo", "Vídeos de produtos e serviços"],
+      "Captação e produção audiovisual para apresentar sua empresa com mais qualidade, personalidade e impacto.",
   },
   {
-    id: "04",
+    number: "03",
     name: "DESIGN GRÁFICO",
-    short: "Visual que faz sua empresa parecer do tamanho que ela merece.",
     description:
-      "Materiais visuais consistentes, modernos e limpos que traduzem a excelência da sua entrega na primeira fração de segundo.",
-    tag: "Estética & Precisão",
-    deliverables: ["Peças digitais e impressas", "Materiais de ponto de venda", "Apresentações comerciais de alto padrão", "Papelaria e uniformização"],
+      "Criativos e materiais visuais que fortalecem a comunicação e a percepção profissional da sua marca.",
   },
   {
-    id: "05",
+    number: "04",
     name: "BRANDING / COMUNICAÇÃO VISUAL",
-    short: "Identidade para ser reconhecido.",
     description:
-      "Direção de identidade visual e linguagem que tornam o negócio inconfundível, profissional e coerente em qualquer suporte.",
-    tag: "Reconhecimento & Coerência",
-    deliverables: ["Sistema de identidade visual", "Manual de aplicação e estilo", "Paleta de cores e tipografia de marca", "Elementos gráficos proprietários"],
+      "Construção e organização da identidade visual para tornar sua marca mais reconhecível, coerente e memorável.",
   },
   {
-    id: "06",
+    number: "05",
     name: "POSICIONAMENTO ESTRATÉGICO",
-    short: "Comunicação com direção.",
     description:
-      "Definição clara de como seu negócio deve se expressar, para quem está falando e por quais atributos ele será lembrado e valorizado.",
-    tag: "Direção & Clareza",
-    deliverables: ["Diagnóstico de percepção atual", "Definição de proposta única de valor", "Matriz de diferenciação local", "Voz e tom de comunicação"],
+      "Estratégia para definir como sua empresa se apresenta, se comunica e quer ser percebida pelo mercado.",
   },
 ];
 

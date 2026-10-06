@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { AUDIENCE_CATEGORIES } from '../config/siteConfig';
+import { Typewriter } from './ui/typewriter';
 
 export const TargetAudience: React.FC = () => {
   const row1 = [...AUDIENCE_CATEGORIES, ...AUDIENCE_CATEGORIES];
@@ -23,6 +24,13 @@ export const TargetAudience: React.FC = () => {
             COMEÇOU PEQUENO, <br />
             <span className="text-[#FF5E14]">MAS PENSA GRANDE.</span>
           </h2>
+          <p className="mt-4 text-xs sm:text-base text-neutral-400 font-light">
+            Comunicação e autoridade de marca para{' '}
+            <Typewriter
+              words={["restaurantes", "clínicas", "academias", "lojas", "oficinas", "especialistas"]}
+              className="text-[#FF5E14] font-semibold"
+            />
+          </p>
         </motion.div>
       </div>
 

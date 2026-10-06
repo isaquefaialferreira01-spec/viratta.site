@@ -91,7 +91,7 @@ export default function App() {
       {/* 27 — FOOTER */}
       <Footer />
 
-      {/* 25 — FLOATING WHATSAPP BUTTON */}
+      {/* 25 — FLOATING WHATSAPP BUTTON (VIRATTA DESIGN) */}
       <FloatingWhatsApp />
     </div>
   );

@@ -1,8 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { STRUCTURAL_NUMBERS } from '../config/siteConfig';
+import { NumberTicker } from './ui/number-ticker';
 
 export const StructuralNumbers: React.FC = () => {
+  const numberData = [
+    { value: 4, prefix: "0", suffix: "" },
+    { value: 6, prefix: "0", suffix: "" },
+    { value: 1, prefix: "0", suffix: "" },
+    { value: 360, prefix: "", suffix: "°" },
+  ];
+
   return (
     <section className="relative py-16 sm:py-24 lg:py-28 bg-[#070708] border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,10 +40,15 @@ export const StructuralNumbers: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative p-6 sm:p-8 rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-[#FF5E14]/40 transition-all duration-300 group flex flex-col justify-between"
             >
-              {/* Giant Numerical Anchor */}
+              {/* Giant Numerical Anchor with NumberTicker */}
               <div>
                 <span className="font-mono tabular-nums text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white group-hover:text-[#FF5E14] transition-colors duration-300 leading-none block">
-                  {item.number}
+                  <NumberTicker
+                    value={numberData[index]?.value ?? 0}
+                    prefix={numberData[index]?.prefix ?? ""}
+                    suffix={numberData[index]?.suffix ?? ""}
+                    durationMs={1600}
+                  />
                 </span>
                 <h3 className="mt-4 sm:mt-6 text-xs sm:text-sm font-bold tracking-wider uppercase text-neutral-200 group-hover:text-white transition-colors">
                   {item.label}
