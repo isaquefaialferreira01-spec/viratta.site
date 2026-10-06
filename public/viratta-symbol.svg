@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="viratta-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B00"/>
+      <stop offset="100%" stop-color="#FF3E00"/>
+    </linearGradient>
+  </defs>
+  <!-- V Monogram Body with Keyhole Cutout -->
+  <path fill-rule="evenodd" clip-rule="evenodd" 
+    d="M10 14 H35 L50 50 L65 14 H90 L56 90 C53.5 94.5 46.5 94.5 44 90 L10 14 Z M50 56 C46.13 56 43 59.13 43 63 C43 65.8 44.63 68.22 47 69.34 L45.8 79.5 C45.6 80.9 46.7 82 48.1 82 H51.9 C53.3 82 54.4 80.9 54.2 79.5 L53 69.34 C55.37 68.22 57 65.8 57 63 C57 59.13 53.87 56 50 56 Z" 
+    fill="currentColor"/>
+</svg>
