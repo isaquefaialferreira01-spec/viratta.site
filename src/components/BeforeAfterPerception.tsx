@@ -28,7 +28,10 @@ export const BeforeAfterPerception: React.FC = () => {
   };
 
   return (
-    <section className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden">
+    <section 
+      data-section-title="Percepção Antes & Depois"
+      className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

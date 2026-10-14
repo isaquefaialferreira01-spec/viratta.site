@@ -22,7 +22,11 @@ const PRINCIPLES = [
 
 export const AboutViratta: React.FC = () => {
   return (
-    <section id="sobre" className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden">
+    <section 
+      id="sobre" 
+      data-section-title="Sobre a Viratta" 
+      className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Core Compact Anchor */}

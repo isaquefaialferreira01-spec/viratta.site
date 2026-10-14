@@ -1,7 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { CmsState, ClientItem, ServiceItem, ContactSettings, SocialLinks, AppearanceSettings, SeoSettings, SiteCopy, MarqueeItem, SectionVisibility } from '../types/cms';
+import { CmsState, ClientItem, ServiceItem, ContactSettings, SocialLinks, AppearanceSettings, SeoSettings, SiteCopy, MarqueeItem, SectionVisibility, ReelItem, FaqItem } from '../types/cms';
 import { DEFAULT_CMS_STATE, DEFAULT_VIRATTA_COLORS } from '../lib/cmsDefaults';
-import { getPublishedContent, getDraftContent, saveDraftContent, publishContent, applyBrandCssVariables } from '../lib/cmsStorage';
+import { 
+  getPublishedContent, 
+  getDraftContent, 
+  saveDraftContent, 
+  publishContent, 
+  applyBrandCssVariables,
+  fetchPublishedFromSupabase 
+} from '../lib/cmsStorage';
 
 interface CmsContextValue {
   content: CmsState;
@@ -20,6 +27,9 @@ interface CmsContextValue {
   updateSeo: (seo: Partial<SeoSettings>) => void;
   updateCopy: (copy: Partial<SiteCopy>) => void;
   updateMarquee: (items: MarqueeItem[]) => void;
+  updateMantraMarquee: (items: MarqueeItem[]) => void;
+  updateReels: (reels: ReelItem[]) => void;
+  updateFaqItems: (items: FaqItem[]) => void;
   updateSections: (sections: Partial<SectionVisibility>) => void;
   reloadCms: () => void;
 }
@@ -37,6 +47,15 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return false;
   });
 
+  // Sync published content from Supabase backend on mount (Single Source of Truth)
+  useEffect(() => {
+    fetchPublishedFromSupabase().then((remoteData) => {
+      if (remoteData) {
+        setPublished(remoteData);
+      }
+    });
+  }, []);
+
   // Apply colors on mount and when appearance changes
   useEffect(() => {
     const activeAppearance = isPreviewMode ? draft.appearance : published.appearance;
@@ -45,24 +64,61 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Update SEO meta tags on head
   useEffect(() => {
-    if (typeof document !== 'undefined') {
-      const activeSeo = isPreviewMode ? draft.seo : published.seo;
-      if (activeSeo.site_title) {
-        document.title = activeSeo.site_title;
-      }
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc && activeSeo.meta_description) {
-        metaDesc.setAttribute('content', activeSeo.meta_description);
-      }
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle && activeSeo.og_title) {
-        ogTitle.setAttribute('content', activeSeo.og_title);
-      }
-      const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc && activeSeo.og_description) {
-        ogDesc.setAttribute('content', activeSeo.og_description);
-      }
+    if (typeof document === 'undefined') return;
+
+    const activeSeo = isPreviewMode ? draft.seo : published.seo;
+
+    // Document Title
+    if (activeSeo.site_title) {
+      document.title = activeSeo.site_title;
     }
+
+    const setOrCreateMeta = (nameOrProperty: string, isProperty: boolean, content?: string) => {
+      if (!content) return;
+      const selector = isProperty
+        ? `meta[property="${nameOrProperty}"]`
+        : `meta[name="${nameOrProperty}"]`;
+      let tag = document.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(isProperty ? 'property' : 'name', nameOrProperty);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    // Standard meta tags
+    setOrCreateMeta('description', false, activeSeo.meta_description);
+    setOrCreateMeta('keywords', false, activeSeo.keywords);
+    setOrCreateMeta('robots', false, activeSeo.robots || 'index, follow');
+    setOrCreateMeta('author', false, activeSeo.author || 'VIRATTA MARKETING');
+
+    // Canonical link
+    if (activeSeo.canonical_url) {
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', activeSeo.canonical_url);
+    }
+
+    // Open Graph
+    setOrCreateMeta('og:title', true, activeSeo.og_title || activeSeo.site_title);
+    setOrCreateMeta('og:description', true, activeSeo.og_description || activeSeo.meta_description);
+    setOrCreateMeta('og:image', true, activeSeo.og_image_url);
+    setOrCreateMeta('og:type', true, activeSeo.og_type || 'website');
+    setOrCreateMeta('og:site_name', true, 'VIRATTA MARKETING');
+    if (activeSeo.canonical_url) {
+      setOrCreateMeta('og:url', true, activeSeo.canonical_url);
+    }
+
+    // Twitter Card
+    setOrCreateMeta('twitter:card', false, activeSeo.twitter_card || 'summary_large_image');
+    setOrCreateMeta('twitter:title', false, activeSeo.og_title || activeSeo.site_title);
+    setOrCreateMeta('twitter:description', false, activeSeo.og_description || activeSeo.meta_description);
+    setOrCreateMeta('twitter:image', false, activeSeo.og_image_url);
   }, [published.seo, draft.seo, isPreviewMode]);
 
   const reloadCms = useCallback(() => {
@@ -127,6 +183,18 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     saveDraft({ marquee_items });
   }, [saveDraft]);
 
+  const updateMantraMarquee = useCallback((marquee_mantra_items: MarqueeItem[]) => {
+    saveDraft({ marquee_mantra_items });
+  }, [saveDraft]);
+
+  const updateReels = useCallback((reels: ReelItem[]) => {
+    saveDraft({ reels });
+  }, [saveDraft]);
+
+  const updateFaqItems = useCallback((faq_items: FaqItem[]) => {
+    saveDraft({ faq_items });
+  }, [saveDraft]);
+
   const updateSections = useCallback((sections: Partial<SectionVisibility>) => {
     saveDraft({ sections: { ...draft.sections, ...sections } });
   }, [draft.sections, saveDraft]);
@@ -162,6 +230,9 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateSeo,
         updateCopy,
         updateMarquee,
+        updateMantraMarquee,
+        updateReels,
+        updateFaqItems,
         updateSections,
         reloadCms,
       }}

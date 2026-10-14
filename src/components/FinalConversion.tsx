@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { VirattaSymbol } from './brand/VirattaSymbol';
-import { getWhatsAppUrl, SITE_CONFIG } from '../config/siteConfig';
+import { SITE_CONFIG } from '../config/siteConfig';
+import { useCms } from '../context/CmsContext';
 import { ArrowUpRight, Lock, Unlock, MessageSquare, Mail, MapPin } from 'lucide-react';
 
 export const FinalConversion: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const { getWhatsAppUrl, content } = useCms();
+  const copy = content?.copy || ({} as any);
+  const settings = content?.settings || ({} as any);
+
+  const headline = copy.final_cta_headline || "SUA EMPRESA JÁ EXISTE. AGORA ELA PRECISA SER PERCEBIDA.";
+  const subtitle = copy.final_cta_subtitle || "Não deixe que uma comunicação pequena limite a grandeza do seu negócio.";
+  const buttonText = copy.final_cta_button || "Quero Virar a Chave";
+  const buttonLink = copy.final_cta_button_link || getWhatsAppUrl("Olá! Conheci a VIRATTA pelo site e quero virar a chave da comunicação da minha empresa.");
+
+  const whatsappDisplay = settings.whatsapp_number
+    ? `(${settings.whatsapp_ddd || '11'}) ${settings.whatsapp_number}`
+    : SITE_CONFIG.whatsappDisplay;
+  const emailDisplay = settings.email || SITE_CONFIG.email;
+  const locationDisplay = settings.location || SITE_CONFIG.location;
 
   return (
-    <section id="contato" className="relative py-20 sm:py-36 lg:py-44 bg-[#070708] overflow-hidden select-none">
+    <section 
+      id="contato" 
+      data-section-title="Contato" 
+      className="relative py-20 sm:py-36 lg:py-44 bg-[#070708] overflow-hidden select-none"
+    >
       {/* Background Volumetric Light Ray */}
       <div 
         aria-hidden="true"
@@ -45,14 +64,9 @@ export const FinalConversion: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-[-0.03em] leading-[1.02] sm:leading-[0.98] text-balance"
+          className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-[-0.03em] leading-[1.02] sm:leading-[0.98] text-balance whitespace-pre-line"
         >
-          SUA EMPRESA <br />
-          JÁ EXISTE. <br />
-          <span className="text-neutral-400">AGORA ELA PRECISA</span> <br />
-          <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-[#FF5E14]">
-            SER PERCEBIDA.
-          </span>
+          {headline}
         </motion.h2>
 
         <motion.p
@@ -62,7 +76,7 @@ export const FinalConversion: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 sm:mt-8 text-sm sm:text-xl text-neutral-300 font-light max-w-2xl text-balance px-2"
         >
-          Não deixe que uma comunicação pequena limite a grandeza do seu negócio.
+          {subtitle}
         </motion.p>
 
         {/* Primary Unlocking Action CTA */}
@@ -74,9 +88,9 @@ export const FinalConversion: React.FC = () => {
           className="mt-8 sm:mt-12 w-full sm:w-auto px-2"
         >
           <a
-            href={getWhatsAppUrl("Olá! Conheci a VIRATTA pelo site e quero virar a chave da comunicação da minha empresa.")}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={buttonLink}
+            target={buttonLink.startsWith('http') ? "_blank" : undefined}
+            rel={buttonLink.startsWith('http') ? "noopener noreferrer" : undefined}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onTouchStart={() => setIsHovered(true)}
@@ -93,7 +107,7 @@ export const FinalConversion: React.FC = () => {
               <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-white/80" />
             )}
 
-            <span>Quero Virar a Chave</span>
+            <span>{buttonText}</span>
             <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
         </motion.div>
@@ -107,15 +121,15 @@ export const FinalConversion: React.FC = () => {
             className="flex items-center justify-center gap-2 hover:text-white transition-colors py-1.5"
           >
             <MessageSquare className="w-4 h-4 text-[#FF5E14]" />
-            <span>WhatsApp Direto: {SITE_CONFIG.whatsappDisplay}</span>
+            <span>WhatsApp Direto: {whatsappDisplay}</span>
           </a>
           <div className="flex items-center justify-center gap-2 py-1.5">
             <Mail className="w-4 h-4 text-[#FF5E14]" />
-            <span>{SITE_CONFIG.email}</span>
+            <span>{emailDisplay}</span>
           </div>
           <div className="flex items-center justify-center gap-2 py-1.5">
             <MapPin className="w-4 h-4 text-[#FF5E14]" />
-            <span>{SITE_CONFIG.location}</span>
+            <span>{locationDisplay}</span>
           </div>
         </div>
 

@@ -20,6 +20,7 @@ html {
   background-color: #070708;
   overflow-x: hidden;
   width: 100%;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
   width: 100%;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Custom scrollbar on non-touch devices */
@@ -42,6 +44,16 @@ body {
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
+    background: #FF5E14;
+  }
+
+  html.light ::-webkit-scrollbar-track {
+    background: #F3F4F6;
+  }
+  html.light ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+  }
+  html.light ::-webkit-scrollbar-thumb:hover {
     background: #FF5E14;
   }
 }
@@ -146,4 +158,176 @@ body {
 ::selection {
   background-color: #FF5E14;
   color: #FFFFFF;
+}
+
+/* =========================================================================
+   VERSÃO DE ALTO CONTRASTE (FUNDO BRANCO) — TAILWIND CSS ADAPTIVE OVERRIDES
+   ========================================================================= */
+
+html.light {
+  color-scheme: light;
+  background-color: #FFFFFF !important;
+}
+
+html.light body {
+  background-color: #FFFFFF !important;
+  color: #070708 !important;
+}
+
+/* 1. SEÇÕES E SUPERFÍCIES ESCURAS TRANSFORMADAS EM FUNDO BRANCO / CLARO */
+html.light .bg-\[\#070708\],
+html.light .bg-\[\#08080A\],
+html.light .bg-\[\#090A0C\],
+html.light .bg-\[\#0A0A0B\],
+html.light .bg-\[\#000000\],
+html.light .bg-black {
+  background-color: #FFFFFF !important;
+}
+
+/* Cards & Superfícies de Contraste Elevado */
+html.light .bg-\[\#0E0F12\] {
+  background-color: #F8F9FA !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .bg-\[\#0E0F12\]\/85,
+html.light .bg-\[\#0E0F12\]\/60 {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+}
+
+html.light .bg-\[\#16171C\] {
+  background-color: #F1F3F5 !important;
+}
+
+html.light .bg-black\/50,
+html.light .bg-black\/70,
+html.light .bg-black\/80,
+html.light .bg-black\/90,
+html.light .bg-black\/95 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.05\],
+html.light .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.035) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+html.light .hover\:bg-white\/\[0\.08\]:hover,
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 2. TIPOGRAFIA EM ALTO CONTRASTE */
+/* Títulos e textos brancos tornam-se preto profundo (#070708 / #111827) */
+html.light h1:not(.bg-\[\#FF5E14\] *):not(.bg-\[\#E04E0B\] *),
+html.light h2:not(.bg-\[\#FF5E14\] *):not(.bg-\[\#E04E0B\] *),
+html.light h3:not(.bg-\[\#FF5E14\] *):not(.bg-\[\#E04E0B\] *),
+html.light h4:not(.bg-\[\#FF5E14\] *):not(.bg-\[\#E04E0B\] *) {
+  color: #070708;
+}
+
+html.light .text-white:not(.bg-\[\#FF5E14\] *):not(.bg-\[\#E04E0B\] *):not([class*="bg-[#FF5E14]"] *) {
+  color: #070708 !important;
+}
+
+html.light .text-neutral-100:not(.bg-\[\#FF5E14\] *) {
+  color: #0f1013 !important;
+}
+
+html.light .text-neutral-200:not(.bg-\[\#FF5E14\] *) {
+  color: #1a1c22 !important;
+}
+
+html.light .text-neutral-300:not(.bg-\[\#FF5E14\] *) {
+  color: #272a33 !important;
+}
+
+html.light .text-neutral-400:not(.bg-\[\#FF5E14\] *) {
+  color: #4b5262 !important;
+}
+
+html.light .text-neutral-500:not(.bg-\[\#FF5E14\] *) {
+  color: #646c80 !important;
+}
+
+/* 3. BOTÕES PRINCIPAIS E ELEMENTOS LARANJA — PRESERVAM TEXTO BRANCO */
+html.light .bg-\[\#FF5E14\],
+html.light .bg-\[\#E04E0B\] {
+  color: #FFFFFF !important;
+}
+
+html.light .bg-\[\#FF5E14\] *,
+html.light .bg-\[\#E04E0B\] *,
+html.light a.bg-\[\#FF5E14\] span,
+html.light a.bg-\[\#E04E0B\] span,
+html.light button.bg-\[\#FF5E14\] span,
+html.light button.bg-\[\#E04E0B\] span {
+  color: #FFFFFF !important;
+}
+
+/* 4. BORDAS DE ALTO CONTRASTE */
+html.light .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+html.light .border-white\/15,
+html.light .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+/* 5. LOGOTIPOS EM MODO DE ALTO CONTRASTE */
+/* Inverte letras brancas do logo oficial para preto profundo, mantendo o símbolo laranja */
+html.light .viratta-logo-img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Inverte marcas parceiras vetorizadas brancas para exibição nítida no fundo claro */
+html.light .client-logo-img {
+  filter: invert(1);
+}
+
+/* 6. GLOWS AMBIENTAIS E TEXTURAS DE GRID */
+/* Suaviza os glows volumétricos para manter o fundo branco limpo e premium */
+html.light .bg-\[\#FF5E14\]\/15,
+html.light .bg-\[\#FF5E14\]\/10 {
+  opacity: 0.35 !important;
+}
+
+/* Grid sutil adaptado para contraste escuro sobre branco */
+html.light [aria-hidden="true"].bg-\[linear-gradient\(to_right\,\#ffffff05_1px\,transparent_1px\)\,linear-gradient\(to_bottom\,\#ffffff05_1px\,transparent_1px\)\] {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+}
+
+html.light [aria-hidden="true"].bg-\[linear-gradient\(to_right\,\#ffffff04_1px\,transparent_1px\)\,linear-gradient\(to_bottom\,\#ffffff04_1px\,transparent_1px\)\] {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px) !important;
+}
+
+/* 7. CARDS E ELEVAÇÕES ESPECÍFICAS */
+html.light .shadow-\[0_8px_30px_rgb\(0\,0\,0\,0\.5\)\] {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* FAQ em alto contraste */
+html.light #faq .bg-\[\#0E0F12\] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light #faq .bg-\[\#0E0F12\]\/60 {
+  background-color: #FBFBFC !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
 }

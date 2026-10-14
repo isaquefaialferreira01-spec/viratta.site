@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCms } from '../context/CmsContext';
 
 interface InfiniteMarqueeProps {
   variant?: 'orange' | 'dark';
@@ -27,8 +28,18 @@ export const InfiniteMarquee: React.FC<InfiniteMarqueeProps> = ({
   variant = 'orange',
   reverse = false,
 }) => {
-  const words = variant === 'orange' ? SERVICES_WORDS : MANTRA_WORDS;
+  const { content } = useCms();
   const isOrange = variant === 'orange';
+
+  let words = isOrange ? SERVICES_WORDS : MANTRA_WORDS;
+
+  if (isOrange && content?.marquee_items?.length) {
+    const active = content.marquee_items.filter((i) => i.is_active).map((i) => i.text);
+    if (active.length > 0) words = active;
+  } else if (!isOrange && content?.marquee_mantra_items?.length) {
+    const active = content.marquee_mantra_items.filter((i) => i.is_active).map((i) => i.text);
+    if (active.length > 0) words = active;
+  }
 
   // Render a single repeated unit
   const renderItemUnit = (keyPrefix: string) => (

@@ -2,10 +2,20 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { VirattaSymbol } from './brand/VirattaSymbol';
 import { SpotlightGrid } from './ui/spotlight-grid';
+import { useCms } from '../context/CmsContext';
 
 export const BrandStatement: React.FC = () => {
+  const { content } = useCms();
+  const copy = content?.copy || ({} as any);
+
+  const quote = copy.brand_statement_quote;
+  const subtitle = copy.brand_statement_subtitle || "Estratégia · Posicionamento · Presença Real";
+
   return (
-    <section className="relative overflow-hidden border-y border-white/5">
+    <section 
+      data-section-title="Manifesto de Marca"
+      className="relative overflow-hidden border-y border-white/5"
+    >
       <SpotlightGrid className="py-20 sm:py-32 lg:py-40 bg-[#050506] min-h-[560px]">
         {/* Background radial atmosphere */}
         <div 
@@ -31,15 +41,21 @@ export const BrandStatement: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-[-0.03em] leading-[1.08] sm:leading-[1.04] text-balance"
+            className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-[-0.03em] leading-[1.08] sm:leading-[1.04] text-balance whitespace-pre-line"
           >
-            NÓS NÃO MUDAMOS <br className="hidden sm:inline" />
-            O SEU NEGÓCIO. <br />
-            <span className="text-neutral-400">MUDAMOS A FORMA</span> <br className="hidden sm:inline" />
-            COMO ELE É{" "}
-            <span className="relative inline-block text-[#FF5E14] drop-shadow-[0_0_35px_rgba(255,94,20,0.5)]">
-              PERCEBIDO.
-            </span>
+            {quote && quote !== 'NÓS NÃO MUDAMOS O SEU NEGÓCIO. MUDAMOS A FORMA COMO ELE É PERCEBIDO.' ? (
+              quote
+            ) : (
+              <>
+                NÓS NÃO MUDAMOS <br className="hidden sm:inline" />
+                O SEU NEGÓCIO. <br />
+                <span className="text-neutral-400">MUDAMOS A FORMA</span> <br className="hidden sm:inline" />
+                COMO ELE É{" "}
+                <span className="relative inline-block text-[#FF5E14] drop-shadow-[0_0_35px_rgba(255,94,20,0.5)]">
+                  PERCEBIDO.
+                </span>
+              </>
+            )}
           </motion.blockquote>
 
           <motion.p
@@ -49,7 +65,7 @@ export const BrandStatement: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 sm:mt-10 md:mt-12 text-xs sm:text-base md:text-lg text-neutral-400 uppercase tracking-[0.2em] sm:tracking-[0.25em] font-semibold"
           >
-            Estratégia · Posicionamento · Presença Real
+            {subtitle}
           </motion.p>
         </div>
       </SpotlightGrid>

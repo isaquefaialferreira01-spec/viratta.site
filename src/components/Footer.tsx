@@ -1,13 +1,20 @@
 import React from 'react';
 import { VirattaLogo } from './brand/VirattaLogo';
 import { VirattaSymbol } from './brand/VirattaSymbol';
-import { NAV_LINKS, getWhatsAppUrl, SITE_CONFIG } from '../config/siteConfig';
-import { Instagram, MessageSquare, ArrowUp } from 'lucide-react';
+import { NAV_LINKS, SITE_CONFIG } from '../config/siteConfig';
+import { useCms } from '../context/CmsContext';
+import { Instagram, MessageSquare, ArrowUp, Lock } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const { content, getWhatsAppUrl } = useCms();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const instagramUrl = content?.social?.instagram?.url || SITE_CONFIG.instagramUrl;
+  const description = content?.settings?.tagline
+    ? `Empresa brasileira de marketing e comunicação estratégica. ${content.settings.tagline}`
+    : 'Empresa brasileira de marketing e comunicação estratégica. Destrave a percepção da sua empresa e seja visto pelo valor real do que você entrega.';
 
   return (
     <footer className="relative bg-[#050506] border-t border-white/10 pt-16 sm:pt-20 pb-10 sm:pb-12 overflow-hidden text-neutral-400">
@@ -21,7 +28,7 @@ export const Footer: React.FC = () => {
             <VirattaLogo size="lg" />
             
             <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-neutral-300 font-light max-w-sm leading-relaxed">
-              Empresa brasileira de marketing e comunicação estratégica. Destrave a percepção da sua empresa e seja visto pelo valor real do que você entrega.
+              {description}
             </p>
 
             <div className="mt-4 sm:mt-6 text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#FF5E14]">
@@ -67,7 +74,7 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href={SITE_CONFIG.instagramUrl}
+                    href={instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 py-1 text-xs uppercase tracking-wider text-neutral-400 hover:text-[#FF5E14] transition-colors"
@@ -107,6 +114,14 @@ export const Footer: React.FC = () => {
           </div>
           <div className="flex items-center gap-4 text-neutral-400">
             <span>Bons negócios não deveriam passar despercebidos.</span>
+            <a
+              href="/admin"
+              className="inline-flex items-center gap-1 text-[11px] text-neutral-600 hover:text-[#FF5E14] transition-colors"
+              title="Acesso Administrativo"
+            >
+              <Lock className="w-3 h-3" />
+              <span>Admin</span>
+            </a>
           </div>
         </div>
 

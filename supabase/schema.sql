@@ -39,7 +39,7 @@ CREATE POLICY "Admins can update admin_users"
   ON public.admin_users FOR ALL
   USING (public.is_admin());
 
--- 3. TABLE: site_settings (Global settings, WhatsApp, Colors, SEO)
+-- 3. TABLE: site_settings (Global settings, WhatsApp, Colors, SEO & Open Graph)
 CREATE TABLE IF NOT EXISTS public.site_settings (
   id TEXT PRIMARY KEY DEFAULT 'current',
   brand_name TEXT NOT NULL DEFAULT 'VIRATTA MARKETING',
@@ -57,6 +57,18 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
   border_color TEXT NOT NULL DEFAULT 'rgba(255, 255, 255, 0.08)',
   logo_url TEXT NOT NULL DEFAULT '/viratta-official-logo.png',
   favicon_url TEXT NOT NULL DEFAULT '/favicon.ico',
+  -- SEO & Open Graph Settings
+  site_title TEXT NOT NULL DEFAULT 'VIRATTA MARKETING — Destrave a Percepção da Sua Marca',
+  meta_description TEXT NOT NULL DEFAULT 'Comunicação estratégica, identidade visual, filmmaker e criação de conteúdo para pequenos e médios negócios serem percebidos com o valor que realmente têm.',
+  og_title TEXT NOT NULL DEFAULT 'VIRATTA MARKETING — Destrave a Percepção da Sua Marca',
+  og_description TEXT NOT NULL DEFAULT 'Comunicação estratégica, identidade visual, filmmaker e criação de conteúdo para pequenos e médios negócios serem percebidos com o valor que realmente têm.',
+  og_image_url TEXT NOT NULL DEFAULT '/viratta-official-logo.png',
+  canonical_url TEXT DEFAULT 'https://virattamarketing.com.br',
+  keywords TEXT DEFAULT 'marketing estratégico, comunicação visual, branding, filmmaker, posicionamento, viratta',
+  twitter_card TEXT DEFAULT 'summary_large_image',
+  og_type TEXT DEFAULT 'website',
+  robots TEXT DEFAULT 'index, follow',
+  author TEXT DEFAULT 'VIRATTA MARKETING',
   updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
 );
 

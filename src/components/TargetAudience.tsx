@@ -8,7 +8,10 @@ export const TargetAudience: React.FC = () => {
   const row2 = [...AUDIENCE_CATEGORIES.slice().reverse(), ...AUDIENCE_CATEGORIES.slice().reverse()];
 
   return (
-    <section className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] overflow-hidden border-b border-white/5 w-full">
+    <section 
+      data-section-title="Público-Alvo"
+      className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] overflow-hidden border-b border-white/5 w-full"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10 sm:mb-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

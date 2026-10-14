@@ -7,7 +7,7 @@ const DRAFT_STORAGE_KEY = 'viratta_cms_draft_v1';
 const VERSIONS_STORAGE_KEY = 'viratta_cms_versions_v1';
 
 /**
- * Apply global brand CSS variables dynamically to the document root
+ * Apply global brand CSS variables and fonts dynamically to the document root
  */
 export function applyBrandCssVariables(colors: {
   primary_color: string;
@@ -15,15 +15,74 @@ export function applyBrandCssVariables(colors: {
   text_color: string;
   surface_color: string;
   border_color: string;
+  font_family?: string;
+  favicon_url?: string;
 }) {
   if (typeof document === 'undefined') return;
 
   const root = document.documentElement;
-  root.style.setProperty('--brand-primary', colors.primary_color);
-  root.style.setProperty('--brand-background', colors.background_color);
-  root.style.setProperty('--brand-text', colors.text_color);
-  root.style.setProperty('--brand-surface', colors.surface_color);
-  root.style.setProperty('--brand-border', colors.border_color);
+  if (colors.primary_color) root.style.setProperty('--brand-primary', colors.primary_color);
+  if (colors.background_color) root.style.setProperty('--brand-background', colors.background_color);
+  if (colors.text_color) root.style.setProperty('--brand-text', colors.text_color);
+  if (colors.surface_color) root.style.setProperty('--brand-surface', colors.surface_color);
+  if (colors.border_color) root.style.setProperty('--brand-border', colors.border_color);
+
+  // Apply custom font family if defined
+  if (colors.font_family) {
+    document.body.style.fontFamily = `"${colors.font_family}", sans-serif`;
+  }
+
+  // Apply custom favicon if defined
+  if (colors.favicon_url) {
+    const faviconLink = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (faviconLink) {
+      faviconLink.href = colors.favicon_url;
+    }
+  }
+}
+
+/**
+ * Fetch published content directly from Supabase to ensure it is the single source of truth.
+ */
+export async function fetchPublishedFromSupabase(): Promise<CmsState | null> {
+  if (!isSupabaseConfigured() || !supabase) return null;
+
+  try {
+    const { data, error } = await supabase
+      .from('site_content')
+      .select('published_data')
+      .eq('id', 'full_snapshot')
+      .maybeSingle();
+
+    if (!error && data?.published_data) {
+      const parsed = data.published_data;
+      const remoteState: CmsState = {
+        ...DEFAULT_CMS_STATE,
+        ...parsed,
+        settings: { ...DEFAULT_CMS_STATE.settings, ...(parsed.settings || {}) },
+        social: { ...DEFAULT_CMS_STATE.social, ...(parsed.social || {}) },
+        appearance: { ...DEFAULT_CMS_STATE.appearance, ...(parsed.appearance || {}) },
+        seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
+        copy: { ...DEFAULT_CMS_STATE.copy, ...(parsed.copy || {}) },
+        sections: { ...DEFAULT_CMS_STATE.sections, ...(parsed.sections || {}) },
+        clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
+        services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
+        marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
+        marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
+        reels: Array.isArray(parsed.reels) ? parsed.reels : (DEFAULT_CMS_STATE.reels || []),
+        faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
+      };
+
+      // Cache locally for instantaneous subsequent rendering
+      localStorage.setItem(PUBLISHED_STORAGE_KEY, JSON.stringify(remoteState));
+      applyBrandCssVariables(remoteState.appearance);
+
+      return remoteState;
+    }
+  } catch (err) {
+    console.warn('Supabase remote fetch warning:', err);
+  }
+  return null;
 }
 
 /**
@@ -47,6 +106,9 @@ export function getPublishedContent(): CmsState {
         clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
+        marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
+        reels: Array.isArray(parsed.reels) ? parsed.reels : (DEFAULT_CMS_STATE.reels || []),
+        faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
       };
     }
   } catch (err) {
@@ -75,6 +137,9 @@ export function getDraftContent(): CmsState {
         clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
+        marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
+        reels: Array.isArray(parsed.reels) ? parsed.reels : (DEFAULT_CMS_STATE.reels || []),
+        faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
       };
     }
   } catch (err) {}
@@ -125,7 +190,7 @@ export async function publishContent(draftState: CmsState): Promise<{ success: b
           .from('site_settings')
           .upsert({
             id: 'current',
-            brand_name: publishedState.settings.email,
+            brand_name: 'VIRATTA MARKETING',
             phone: `${publishedState.settings.whatsapp_country}${publishedState.settings.whatsapp_ddd}${publishedState.settings.whatsapp_number}`,
             whatsapp_default_message: publishedState.settings.whatsapp_default_message,
             email: publishedState.settings.email,
@@ -138,6 +203,17 @@ export async function publishContent(draftState: CmsState): Promise<{ success: b
             border_color: publishedState.appearance.border_color,
             logo_url: publishedState.appearance.logo_url,
             favicon_url: publishedState.appearance.favicon_url,
+            site_title: publishedState.seo.site_title,
+            meta_description: publishedState.seo.meta_description,
+            og_title: publishedState.seo.og_title,
+            og_description: publishedState.seo.og_description,
+            og_image_url: publishedState.seo.og_image_url,
+            canonical_url: publishedState.seo.canonical_url,
+            keywords: publishedState.seo.keywords,
+            twitter_card: publishedState.seo.twitter_card,
+            og_type: publishedState.seo.og_type,
+            robots: publishedState.seo.robots,
+            author: publishedState.seo.author,
             updated_at: new Date().toISOString(),
           });
 
@@ -228,3 +304,70 @@ export async function uploadMediaAsset(
     reader.readAsDataURL(file);
   });
 }
+
+/**
+ * Persist SEO settings directly to Supabase database (site_settings and site_content)
+ */
+export async function saveSeoToDatabase(seo: Partial<CmsState['seo']>): Promise<{ success: boolean; error?: string }> {
+  try {
+    const currentDraft = getDraftContent();
+    const updatedDraft: CmsState = {
+      ...currentDraft,
+      seo: {
+        ...currentDraft.seo,
+        ...seo,
+      },
+    };
+
+    saveDraftContent(updatedDraft);
+
+    if (isSupabaseConfigured() && supabase) {
+      const { error: settingsError } = await supabase
+        .from('site_settings')
+        .upsert({
+          id: 'current',
+          site_title: updatedDraft.seo.site_title,
+          meta_description: updatedDraft.seo.meta_description,
+          og_title: updatedDraft.seo.og_title,
+          og_description: updatedDraft.seo.og_description,
+          og_image_url: updatedDraft.seo.og_image_url,
+          canonical_url: updatedDraft.seo.canonical_url,
+          keywords: updatedDraft.seo.keywords,
+          twitter_card: updatedDraft.seo.twitter_card,
+          og_type: updatedDraft.seo.og_type,
+          robots: updatedDraft.seo.robots,
+          author: updatedDraft.seo.author,
+          updated_at: new Date().toISOString(),
+        });
+
+      if (settingsError) {
+        console.warn('Direct site_settings update warning:', settingsError.message);
+      }
+
+      await supabase
+        .from('site_content')
+        .upsert({
+          id: 'full_snapshot',
+          published_data: updatedDraft,
+          draft_data: updatedDraft,
+          updated_at: new Date().toISOString(),
+        });
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    console.error('Error saving SEO to database:', err);
+    return { success: false, error: err?.message || 'Erro ao salvar SEO no banco de dados.' };
+  }
+}
+
+// Re-export Supabase Storage upload utilities
+export {
+  uploadFileToStorage,
+  replaceFileInStorage,
+  deleteFileFromStorage,
+  formatFileSize,
+  validateImageFile,
+  sanitizeFilename,
+} from './storageUpload';
+export type { UploadResult, UploadOptions } from './storageUpload';

@@ -1,10 +1,21 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { VirattaSymbol } from './brand/VirattaSymbol';
+import { useCms } from '../context/CmsContext';
 
 export const FirstImpact: React.FC = () => {
+  const { content } = useCms();
+  const copy = content?.copy || ({} as any);
+
+  const kicker = copy.first_impact_kicker || "O Posicionamento";
+  const headline = copy.first_impact_headline || "SER PEQUENO NÃO SIGNIFICA PARECER PEQUENO.";
+  const subtitle = copy.first_impact_subtitle || "“Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”";
+
   return (
-    <section className="relative py-16 sm:py-28 lg:py-32 bg-[#090A0C] border-y border-white/5 overflow-hidden">
+    <section 
+      data-section-title="Posicionamento"
+      className="relative py-16 sm:py-28 lg:py-32 bg-[#090A0C] border-y border-white/5 overflow-hidden"
+    >
       {/* Decorative official symbol silhouette watermark */}
       <div 
         aria-hidden="true"
@@ -23,7 +34,7 @@ export const FirstImpact: React.FC = () => {
           className="inline-flex items-center gap-2 mb-4 sm:mb-6"
         >
           <span className="text-[11px] sm:text-xs uppercase tracking-[0.3em] font-semibold text-[#FF5E14]">
-            O Posicionamento
+            {kicker}
           </span>
         </motion.div>
 
@@ -33,11 +44,9 @@ export const FirstImpact: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.1] sm:leading-[1.05] text-balance"
+          className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.1] sm:leading-[1.05] text-balance whitespace-pre-line"
         >
-          SER PEQUENO <br />
-          NÃO SIGNIFICA <br />
-          <span className="text-neutral-400">PARECER PEQUENO.</span>
+          {headline}
         </motion.h2>
 
         {/* Short Punchy Sentence */}
@@ -48,7 +57,7 @@ export const FirstImpact: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 sm:mt-8 md:mt-10 text-base sm:text-xl md:text-2xl text-neutral-300 font-light max-w-3xl mx-auto leading-relaxed text-balance px-2"
         >
-          “Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”
+          {subtitle}
         </motion.p>
 
         {/* Minimal divider signature */}

@@ -4,7 +4,10 @@ import { VirattaSymbol } from './brand/VirattaSymbol';
 
 export const BrandPhilosophyLight: React.FC = () => {
   return (
-    <section className="relative py-20 sm:py-36 lg:py-44 bg-[#F5F5F2] text-[#080809] overflow-hidden select-none transition-colors">
+    <section 
+      data-section-title="Filosofia de Marca"
+      className="relative py-20 sm:py-36 lg:py-44 bg-[#F5F5F2] text-[#080809] overflow-hidden select-none transition-colors"
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         {/* Official Viratta symbol */}
         <motion.div

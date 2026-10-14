@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { useCms } from '../context/CmsContext';
 
 export interface ClientLogo {
   name: string;
@@ -26,6 +27,18 @@ export const CLIENT_LOGOS: ClientLogo[] = [
 ];
 
 export const PortfolioShowcase: React.FC = () => {
+  const { content } = useCms();
+
+  // Active logos from CMS or fallback to default
+  const activeClients = (content?.clients || []).filter((c) => c.is_active);
+  const displayLogos: ClientLogo[] = activeClients.length > 0
+    ? activeClients.map((c) => ({ name: c.name, src: c.logo_url }))
+    : CLIENT_LOGOS;
+
+  const copy = content?.copy || ({} as any);
+  const kicker = copy.portfolio_kicker || "CASOS & PORTFÓLIO";
+  const headline = copy.portfolio_headline || "MARCAS QUE COMEÇARAM A VIRAR A CHAVE.";
+
   // Render a single sequence of client logo containers
   const renderLogoSequence = (sequenceKey: string, isAriaHidden = false) => (
     <div
@@ -33,7 +46,7 @@ export const PortfolioShowcase: React.FC = () => {
       aria-hidden={isAriaHidden}
       className="flex items-center gap-4 sm:gap-6 shrink-0"
     >
-      {CLIENT_LOGOS.map((client, idx) => (
+      {displayLogos.map((client, idx) => (
         <div
           key={`${sequenceKey}-${client.name}-${idx}`}
           className="group w-44 sm:w-60 md:w-68 h-20 sm:h-24 md:h-28 rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-white/10 transition-colors duration-300 p-4 sm:p-6 flex items-center justify-center shrink-0 select-none shadow-sm"
@@ -41,7 +54,7 @@ export const PortfolioShowcase: React.FC = () => {
           <img
             src={client.src}
             alt={isAriaHidden ? "" : client.name}
-            className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            className="client-logo-img max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
             decoding="async"
           />
@@ -51,7 +64,11 @@ export const PortfolioShowcase: React.FC = () => {
   );
 
   return (
-    <section id="projetos" className="relative py-14 sm:py-24 lg:py-28 bg-[#070708] border-b border-white/5 overflow-hidden">
+    <section 
+      id="projetos" 
+      data-section-title="Projetos & Portfólio" 
+      className="relative py-14 sm:py-24 lg:py-28 bg-[#070708] border-b border-white/5 overflow-hidden"
+    >
       {/* Background ambient glow */}
       <div 
         aria-hidden="true"
@@ -67,11 +84,10 @@ export const PortfolioShowcase: React.FC = () => {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="text-[11px] sm:text-xs uppercase tracking-[0.3em] font-semibold text-[#FF5E14] block mb-2 sm:mb-3">
-            CASOS & PORTFÓLIO
+            {kicker}
           </span>
-          <h2 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08] sm:leading-[1.05] text-balance">
-            MARCAS QUE COMEÇARAM <br />
-            A <span className="text-[#FF5E14]">VIRAR A CHAVE.</span>
+          <h2 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08] sm:leading-[1.05] text-balance whitespace-pre-line">
+            {headline}
           </h2>
         </motion.div>
       </div>

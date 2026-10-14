@@ -17,7 +17,10 @@ export const CustomerJourney: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <section className="relative py-16 sm:py-28 lg:py-36 bg-[#050506] border-b border-white/5 overflow-hidden">
+    <section 
+      data-section-title="Jornada do Cliente"
+      className="relative py-16 sm:py-28 lg:py-36 bg-[#050506] border-b border-white/5 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Headline */}

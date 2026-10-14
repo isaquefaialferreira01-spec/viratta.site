@@ -1,11 +1,26 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { VIRATTA_SERVICES, getWhatsAppUrl } from '../config/siteConfig';
+import { VIRATTA_SERVICES } from '../config/siteConfig';
+import { useCms } from '../context/CmsContext';
 import { ArrowUpRight } from 'lucide-react';
 
 export const InteractiveServices: React.FC = () => {
+  const { content, getWhatsAppUrl } = useCms();
+
+  const servicesList = (content?.services || []).filter((s) => s.is_active);
+  const displayServices = servicesList.length > 0 ? servicesList : VIRATTA_SERVICES;
+  const copy = content?.copy || ({} as any);
+
+  const kicker = copy.services_kicker || "Capacidades Viratta";
+  const headline = copy.services_headline || "O QUE FAZEMOS PARA SUA MARCA SER PERCEBIDA.";
+  const subtitle = copy.services_subtitle || "Sem pacotes genéricos. Soluções conectadas para empresas que se recusam a continuar invisíveis.";
+
   return (
-    <section id="servicos" className="relative py-10 sm:py-20 lg:py-28 bg-[#070708] border-b border-white/5">
+    <section 
+      id="servicos" 
+      data-section-title="Serviços" 
+      className="relative py-10 sm:py-20 lg:py-28 bg-[#070708] border-b border-white/5"
+    >
       {/* Background ambient gradient */}
       <div 
         aria-hidden="true"
@@ -22,21 +37,19 @@ export const InteractiveServices: React.FC = () => {
           className="mb-5 sm:mb-10 lg:mb-12"
         >
           <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#FF5E14] block mb-1 sm:mb-2">
-            Capacidades Viratta
+            {kicker}
           </span>
-          <h2 className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.06] text-balance">
-            O QUE FAZEMOS <br />
-            PARA SUA MARCA <br />
-            <span className="text-[#FF5E14]">SER PERCEBIDA.</span>
+          <h2 className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.06] text-balance whitespace-pre-line">
+            {headline}
           </h2>
           <p className="mt-2 sm:mt-3 text-[11px] xs:text-xs sm:text-base text-neutral-400 max-w-xl font-light leading-relaxed">
-            Sem pacotes genéricos. Soluções conectadas para empresas que se recusam a continuar invisíveis.
+            {subtitle}
           </p>
         </motion.div>
 
         {/* Minimal Text-Based Service Cards (Optimized mobile vertical footprint) */}
         <div className="flex flex-col space-y-2 sm:space-y-3 max-w-5xl">
-          {VIRATTA_SERVICES.map((service, index) => (
+          {displayServices.map((service, index) => (
             <motion.a
               key={service.number}
               href={getWhatsAppUrl(`Olá! Gostaria de conversar sobre o serviço de ${service.name}.`)}

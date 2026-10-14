@@ -175,6 +175,19 @@ export const ContactsTab: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <div>
+          <label className="block text-xs font-mono uppercase text-neutral-300 mb-2">
+            Slogan / Frase Curta Institucional (Rodapé)
+          </label>
+          <input
+            type="text"
+            value={settings.tagline || ''}
+            onChange={(e) => updateSettings({ tagline: e.target.value })}
+            placeholder="Destrave a percepção da sua marca."
+            className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { CmsState } from '../types/cms';
+import { CmsState, ReelItem, MarqueeItem, FaqItem } from '../types/cms';
 
 export const DEFAULT_VIRATTA_COLORS = {
   primary_color: '#FF5E14',
@@ -7,6 +7,97 @@ export const DEFAULT_VIRATTA_COLORS = {
   surface_color: '#0E0F12',
   border_color: 'rgba(255, 255, 255, 0.08)',
 };
+
+export const DEFAULT_REELS: ReelItem[] = [
+  {
+    id: 'reel-1',
+    title: 'Como gravar vídeos com celular sem parecer caseiro',
+    views: '14.2k',
+    type: 'Reels',
+    image: '/src/assets/images/viratta_audiovisual_studio_1791218069074.jpg',
+    url: 'https://instagram.com/virattamarketing',
+    is_active: true,
+  },
+  {
+    id: 'reel-2',
+    title: 'Antes e Depois: A identidade de um bistrô local',
+    views: '28.6k',
+    type: 'Reels',
+    image: '/src/assets/images/portfolio_gastronomy_1791218028786.jpg',
+    url: 'https://instagram.com/virattamarketing',
+    is_active: true,
+  },
+  {
+    id: 'reel-3',
+    title: 'Por que seu cliente pede desconto e como resolver',
+    views: '19.8k',
+    type: 'Reels',
+    image: '/src/assets/images/portfolio_clinic_1791218038116.jpg',
+    url: 'https://instagram.com/virattamarketing',
+    is_active: true,
+  },
+  {
+    id: 'reel-4',
+    title: 'Bastidores de captação cinematográfica na oficina',
+    views: '22.4k',
+    type: 'Reels',
+    image: '/src/assets/images/portfolio_automotive_1791218057376.jpg',
+    url: 'https://instagram.com/virattamarketing',
+    is_active: true,
+  },
+];
+
+export const DEFAULT_MANTRA_ITEMS: MarqueeItem[] = [
+  { id: 'mt-1', text: 'SEJA VISTO', display_order: 1, is_active: true },
+  { id: 'mt-2', text: 'SEJA LEMBRADO', display_order: 2, is_active: true },
+  { id: 'mt-3', text: 'COMUNIQUE VALOR', display_order: 3, is_active: true },
+  { id: 'mt-4', text: 'VIRE A CHAVE', display_order: 4, is_active: true },
+];
+
+export const DEFAULT_FAQ_ITEMS: FaqItem[] = [
+  {
+    id: 'faq-1',
+    question: 'O que exatamente a VIRATTA faz pela minha empresa?',
+    answer: 'A VIRATTA é uma assessoria de comunicação e posicionamento de marca que integra estratégia, design, audiovisual cinematográfico e criação de conteúdo. Transformamos a forma como sua empresa é percebida no mercado, alinhando a estética visual, tom de voz e presença digital com o valor real e a excelência que seu negócio já entrega.',
+    display_order: 1,
+    is_active: true,
+  },
+  {
+    id: 'faq-2',
+    question: 'Qual é a diferença entre a VIRATTA e uma agência tradicional de social media?',
+    answer: 'Agências tradicionais costumam focar apenas em volume de posts genéricos e templates repetitivos que não geram autoridade. A VIRATTA atua com direção criativa intencional, captação cinematográfica presencial na sua empresa com equipe e equipamentos de cinema, e narrativa focada em percepção de alto padrão, diferenciação e conversão comercial.',
+    display_order: 2,
+    is_active: true,
+  },
+  {
+    id: 'faq-3',
+    question: 'Para quais tipos de empresas os serviços são indicados?',
+    answer: 'Atendemos pequenas e médias empresas, clínicas médicas e estéticas, escritórios corporativos, indústrias, construtoras e marcas em expansão que já possuem um produto ou serviço de excelência, mas sentem que sua comunicação atual ainda parece pequena ou amadora perante o mercado.',
+    display_order: 3,
+    is_active: true,
+  },
+  {
+    id: 'faq-4',
+    question: 'Como funcionam as gravações e captações audiovisuais?',
+    answer: 'Nossa equipe de filmmakers vai presencialmente até o seu espaço de trabalho. Direcionamos as cenas, organizamos a iluminação e orientamos você e sua equipe sobre postura e narrativa, registrando a operação real, bastidores, processos e diferenciais com padrão cinematográfico de cinema.',
+    display_order: 4,
+    is_active: true,
+  },
+  {
+    id: 'faq-5',
+    question: 'Como o posicionamento e o conteúdo aumentam a percepção de valor?',
+    answer: 'Clientes compram percepção antes de comprar o produto ou serviço. Quando sua comunicação transmite solidez, cuidado estético e clareza de valor, você atrai clientes mais qualificados, reduz a objeção de preço e ganha margem para cobrar o que realmente vale sem depender de dar descontos.',
+    display_order: 5,
+    is_active: true,
+  },
+  {
+    id: 'faq-6',
+    question: 'Como posso solicitar uma proposta ou agendar um diagnóstico?',
+    answer: 'Basta clicar no botão de WhatsApp em nosso site ou preencher nosso contato. Nosso time de especialistas agendará uma reunião estratégica para entender seu momento atual e apresentar o plano ideal para virar a chave da sua marca.',
+    display_order: 6,
+    is_active: true,
+  },
+];
 
 export const DEFAULT_CMS_STATE: CmsState = {
   settings: {
@@ -17,6 +108,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       'Olá! Conheci a VIRATTA pelo site e quero entender como podemos transformar a comunicação da minha empresa.',
     email: 'contato@virattamarketing.com.br',
     location: 'São Paulo, SP — Atendimento Brasil',
+    tagline: 'Destrave a percepção da sua marca.',
   },
   social: {
     instagram: {
@@ -44,6 +136,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
     ...DEFAULT_VIRATTA_COLORS,
     logo_url: '/viratta-official-logo.png',
     favicon_url: '/favicon.ico',
+    font_family: 'Plus Jakarta Sans',
   },
   seo: {
     site_title: 'VIRATTA MARKETING — Destrave a Percepção da Sua Marca',
@@ -52,31 +145,58 @@ export const DEFAULT_CMS_STATE: CmsState = {
     og_title: 'VIRATTA MARKETING — Destrave a Percepção da Sua Marca',
     og_description:
       'Comunicação estratégica, identidade visual, filmmaker e criação de conteúdo para pequenos e médios negócios serem percebidos com o valor que realmente têm.',
-    og_image_url: '/viratta-app-icon-1024.png',
+    og_image_url: '/viratta-official-logo.png',
+    canonical_url: 'https://virattamarketing.com.br',
+    keywords: 'marketing estratégico, comunicação visual, branding, filmmaker, posicionamento, viratta',
+    twitter_card: 'summary_large_image',
+    og_type: 'website',
+    robots: 'index, follow',
+    author: 'VIRATTA MARKETING',
   },
   copy: {
-    hero_kicker: 'AGÊNCIA DE COMUNICAÇÃO E POSICIONAMENTO ESTRATÉGICO',
-    hero_title_line1: 'SUA EMPRESA JÁ EXISTE.',
-    hero_title_line2: 'AGORA ELA PRECISA SER PERCEBIDA.',
+    banner_enabled: false,
+    banner_text: '🚀 Condições especiais para novos projetos este mês. Agende sua reunião estratégica!',
+    banner_link: '',
+    banner_button: 'Falar no WhatsApp',
+
+    hero_kicker: 'VIRATTA MARKETING',
+    hero_title_line1: 'SEU NEGÓCIO NÃO PRECISA',
+    hero_title_line2: 'PARECER PEQUENO.',
     hero_subtitle:
-      'Estratégia, audiovisual, identidade visual e conteúdo para negócios que cansaram de parecer menores do que realmente são.',
-    hero_cta_primary: 'FALAR COM A VIRATTA',
-    hero_cta_secondary: 'VER NOSSO MÉTODO',
-    first_impact_headline:
-      'A DIFERENÇA ENTRE QUEM VENDE BARATO E QUEM É DISPUTADO ESTÁ NA PERCEPÇÃO.',
+      'Estratégia, conteúdo e posicionamento para transformar a forma como sua empresa é percebida.',
+    hero_cta_primary: 'QUERO VIRAR A CHAVE',
+    hero_cta_primary_link: '',
+    hero_cta_secondary: 'VER NOSSOS TRABALHOS',
+    hero_cta_secondary_link: '#projetos',
+    hero_services_line: 'Social Media • Filmmaker • Design • Branding • Posicionamento',
+
+    first_impact_kicker: 'O Posicionamento',
+    first_impact_headline: 'SER PEQUENO NÃO SIGNIFICA PARECER PEQUENO.',
+    first_impact_subtitle:
+      '“Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”',
+
     brand_statement_quote:
       'NÓS NÃO MUDAMOS O SEU NEGÓCIO. MUDAMOS A FORMA COMO ELE É PERCEBIDO.',
-    services_kicker: 'CAPACIDADES VIRATTA',
+    brand_statement_subtitle: 'Estratégia · Posicionamento · Presença Real',
+
+    services_kicker: 'Capacidades Viratta',
     services_headline: 'O QUE FAZEMOS PARA SUA MARCA SER PERCEBIDA.',
     services_subtitle:
       'Sem pacotes genéricos. Soluções conectadas para empresas que se recusam a continuar invisíveis.',
+
     portfolio_kicker: 'CASOS & PORTFÓLIO',
     portfolio_headline: 'MARCAS QUE COMEÇARAM A VIRAR A CHAVE.',
+
+    instagram_kicker: 'Bastidores & Conteúdo',
+    instagram_headline: 'A VIRATTA ACONTECE POR AQUI.',
+    instagram_button_text: 'Seguir @virattamarketing',
+
     final_cta_kicker: 'O PRÓXIMO PASSO',
-    final_cta_headline: 'SUA EMPRESA ESTÁ PRONTA PARA VIRAR A CHAVE?',
+    final_cta_headline: 'SUA EMPRESA JÁ EXISTE. AGORA ELA PRECISA SER PERCEBIDA.',
     final_cta_subtitle:
-      'Se você entrega um serviço excelente mas sua comunicação ainda parece improvisada, o problema não é o seu produto. É a sua percepção.',
-    final_cta_button: 'FALAR COM A VIRATTA NO WHATSAPP',
+      'Não deixe que uma comunicação pequena limite a grandeza do seu negócio.',
+    final_cta_button: 'Quero Virar a Chave',
+    final_cta_button_link: '',
   },
   clients: [
     {
@@ -173,9 +293,13 @@ export const DEFAULT_CMS_STATE: CmsState = {
     { id: 'mq-7', text: 'POSICIONAMENTO', display_order: 7, is_active: true },
     { id: 'mq-8', text: 'CRIATIVIDADE', display_order: 8, is_active: true },
   ],
+  marquee_mantra_items: DEFAULT_MANTRA_ITEMS,
+  reels: DEFAULT_REELS,
+  faq_items: DEFAULT_FAQ_ITEMS,
   sections: {
     hero: true,
     first_impact: true,
+    business_needs: true,
     numbers: true,
     marquee_services: true,
     services: true,
@@ -191,6 +315,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
     about: true,
     marquee_mantra: true,
     instagram: true,
+    faq: true,
     final_conversion: true,
   },
   media: [

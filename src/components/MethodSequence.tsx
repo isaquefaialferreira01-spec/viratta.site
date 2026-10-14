@@ -7,7 +7,11 @@ export const MethodSequence: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   return (
-    <section id="metodo" className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden">
+    <section 
+      id="metodo" 
+      data-section-title="Método Viratta" 
+      className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
