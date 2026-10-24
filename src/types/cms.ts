@@ -47,25 +47,35 @@ export interface ContactSettings {
 
 export interface AppearanceSettings {
   primary_color: string; // #FF5E14
+  accent_color?: string; // #FFA726
   background_color: string; // #070708
-  text_color: string; // #F3F4F6
   surface_color: string; // #0E0F12
+  text_color: string; // #F3F4F6
+  secondary_text_color?: string; // #9CA3AF
   border_color: string; // rgba(255, 255, 255, 0.08)
   logo_url?: string;
+  logo_alt?: string;
   favicon_url?: string;
-  font_family?: string; // e.g. 'Plus Jakarta Sans' | 'Inter' | 'Syne' | 'Montserrat'
+  font_family?: string; // e.g. 'Plus Jakarta Sans' | 'Inter' | 'Syne' | 'Montserrat' | 'Outfit'
   hero_image_url?: string;
 }
 
 export interface ReelItem {
   id: string;
   title: string;
-  views: string;
-  type: string;
-  image: string;
+  instagram_url?: string;
   url: string;
+  cover_image?: string;
+  image: string;
+  type: 'post' | 'reel' | string;
+  sort_order?: number;
+  views?: string;
   is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
+
+export type InstagramContentItem = ReelItem;
 
 export interface SeoSettings {
   site_title: string;
@@ -89,7 +99,7 @@ export interface SectionVisibility {
   marquee_services: boolean;
   services: boolean;
   brand_statement: boolean;
-  perception_slider: boolean;
+  perception_slider?: boolean;
   target_audience: boolean;
   method: boolean;
   customer_journey: boolean;

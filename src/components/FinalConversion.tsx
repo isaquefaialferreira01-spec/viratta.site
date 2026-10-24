@@ -118,16 +118,19 @@ export const FinalConversion: React.FC = () => {
             href={getWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 hover:text-white transition-colors py-1.5"
+            className="flex items-center justify-center gap-2 hover:text-white transition-colors py-2 px-3 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] rounded-lg"
           >
             <MessageSquare className="w-4 h-4 text-[#FF5E14]" />
             <span>WhatsApp Direto: {whatsappDisplay}</span>
           </a>
-          <div className="flex items-center justify-center gap-2 py-1.5">
+          <a
+            href={`mailto:${emailDisplay}`}
+            className="flex items-center justify-center gap-2 hover:text-white transition-colors py-2 px-3 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] rounded-lg"
+          >
             <Mail className="w-4 h-4 text-[#FF5E14]" />
             <span>{emailDisplay}</span>
-          </div>
-          <div className="flex items-center justify-center gap-2 py-1.5">
+          </a>
+          <div className="flex items-center justify-center gap-2 py-2 px-3 min-h-[44px]">
             <MapPin className="w-4 h-4 text-[#FF5E14]" />
             <span>{locationDisplay}</span>
           </div>

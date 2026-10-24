@@ -6,11 +6,11 @@ function Row({ items, reverse }: { items: Testimonial[]; reverse?: boolean }) {
   const list = (hidden = false) => (
     <div aria-hidden={hidden} className={cn("flex shrink-0 gap-4 pr-4 motion-safe:animate-[quote-slide_45s_linear_infinite] group-hover:[animation-play-state:paused]", reverse && "[animation-direction:reverse]")}>
       {items.map(t => (
-        <figure key={t.name} className="w-80 shrink-0 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-white/10 dark:bg-zinc-900">
-          <blockquote className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">“{t.text}”</blockquote>
+        <figure key={t.name} className="w-72 sm:w-80 shrink-0 rounded-2xl border border-white/10 bg-[#0E0F12] p-5 shadow-sm">
+          <blockquote className="text-sm leading-relaxed text-neutral-300">“{t.text}”</blockquote>
           <figcaption className="mt-4 flex items-center gap-3">
-            {t.avatar ? <img src={t.avatar} alt="" className="h-9 w-9 rounded-full object-cover" /> : <span className="grid h-9 w-9 place-items-center rounded-full bg-zinc-200 text-xs font-semibold dark:bg-zinc-800">{t.name.split(" ").map(p => p[0]).slice(0, 2).join("")}</span>}
-            <div><div className="text-sm font-semibold">{t.name}</div><div className="text-xs text-zinc-500">{t.role}</div></div>
+            {t.avatar ? <img src={t.avatar} alt="" className="h-9 w-9 rounded-full object-cover" /> : <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1A1B20] text-xs font-semibold text-[#FF5E14] border border-[#FF5E14]/30">{t.name.split(" ").map(p => p[0]).slice(0, 2).join("")}</span>}
+            <div><div className="text-sm font-semibold text-white">{t.name}</div><div className="text-xs text-neutral-400">{t.role}</div></div>
           </figcaption>
         </figure>
       ))}

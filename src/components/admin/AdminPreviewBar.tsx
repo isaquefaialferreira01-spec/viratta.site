@@ -9,10 +9,13 @@ export const AdminPreviewBar: React.FC = () => {
 
   if (!isPreviewMode) return null;
 
+  const [publishedNotice, setPublishedNotice] = React.useState(false);
+
   const handlePublish = async () => {
     const res = await publish();
     if (res.success) {
-      alert('Site publicado com sucesso!');
+      setPublishedNotice(true);
+      setTimeout(() => setPublishedNotice(false), 3500);
     }
   };
 
@@ -30,7 +33,9 @@ export const AdminPreviewBar: React.FC = () => {
           <Eye className="w-3.5 h-3.5" />
         </span>
         <span className="text-white">
-          MODO PRÉVIA ATIVO — Você está visualizando o rascunho das edições
+          {publishedNotice
+            ? 'Alterações publicadas no site.'
+            : 'MODO PRÉVIA ATIVO — Você está visualizando o rascunho das edições'}
         </span>
       </div>
 
@@ -38,28 +43,29 @@ export const AdminPreviewBar: React.FC = () => {
         <button
           type="button"
           onClick={() => setLocation('/admin')}
-          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white transition-colors border border-white/10"
+          className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] gap-1 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white transition-colors border border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
           <span>Voltar ao Painel</span>
         </button>
 
         <button
           type="button"
           onClick={handlePublish}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FF5E14] text-white hover:bg-[#E04E0B] transition-colors shadow-sm font-bold"
+          className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] gap-1.5 px-3 py-2 rounded-lg bg-[#FF5E14] text-white hover:bg-[#E04E0B] transition-colors shadow-sm font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
           <span>Publicar Agora</span>
         </button>
 
         <button
           type="button"
           onClick={handleExitPreview}
-          className="p-1.5 rounded-lg hover:bg-white/10 text-neutral-400 hover:text-white transition-colors"
+          className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center p-2 rounded-lg hover:bg-white/10 text-neutral-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
           title="Fechar modo de prévia"
+          aria-label="Fechar modo de prévia"
         >
-          <X className="w-4 h-4" />
+          <X className="w-4 h-4" aria-hidden="true" />
         </button>
       </div>
     </div>

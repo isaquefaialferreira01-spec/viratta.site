@@ -198,7 +198,7 @@ export const FAQSection: React.FC = () => {
                         ? 'Resposta aberta. Pressione Enter ou Espaço para recolher'
                         : 'Resposta fechada. Pressione Enter ou Espaço para expandir'
                     }`}
-                    className="w-full text-left px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070708] rounded-2xl transition-colors"
+                    className="w-full text-left min-h-[56px] px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070708] rounded-2xl transition-colors"
                   >
                     <div className="flex items-center gap-3 sm:gap-4 flex-1">
                       <span 
@@ -277,7 +277,7 @@ export const FAQSection: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Tirar dúvida personalizada diretamente com a equipe estratégica da VIRATTA no WhatsApp (abre em uma nova aba)"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#FF5E14] hover:bg-[#E04E0B] shadow-[0_0_20px_rgba(255,94,20,0.3)] hover:shadow-[0_0_30px_rgba(255,94,20,0.5)] transition-all duration-200 active:scale-[0.98] group"
+            className="inline-flex items-center justify-center min-h-[48px] gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#FF5E14] hover:bg-[#E04E0B] shadow-[0_0_20px_rgba(255,94,20,0.3)] hover:shadow-[0_0_30px_rgba(255,94,20,0.5)] transition-all duration-200 active:scale-[0.98] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <span>Tirar Dúvida no WhatsApp</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />

@@ -42,8 +42,8 @@ export const InfiniteMarquee: React.FC<InfiniteMarqueeProps> = ({
   }
 
   // Render a single repeated unit
-  const renderItemUnit = (keyPrefix: string) => (
-    <div key={keyPrefix} className="flex items-center shrink-0">
+  const renderItemUnit = (keyPrefix: string, isAriaHidden = false) => (
+    <div key={keyPrefix} aria-hidden={isAriaHidden} className="flex items-center shrink-0">
       {words.map((word, idx) => (
         <React.Fragment key={`${keyPrefix}-${idx}`}>
           <span
@@ -82,11 +82,11 @@ export const InfiniteMarquee: React.FC<InfiniteMarqueeProps> = ({
           reverse ? 'marquee-track-reverse' : 'marquee-track-smooth'
         } flex items-center cursor-default`}
       >
-        {/* Quadrupled sequence for seamless mathematical loop across any screen size */}
-        {renderItemUnit('set-1')}
-        {renderItemUnit('set-2')}
-        {renderItemUnit('set-3')}
-        {renderItemUnit('set-4')}
+        {/* First occurrence is accessible; subsequent duplicate loops are aria-hidden */}
+        {renderItemUnit('set-1', false)}
+        {renderItemUnit('set-2', true)}
+        {renderItemUnit('set-3', true)}
+        {renderItemUnit('set-4', true)}
       </div>
     </aside>
   );

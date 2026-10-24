@@ -100,18 +100,20 @@ export const MethodSequence: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCurrentStep((prev) => (prev > 0 ? prev - 1 : METHOD_STEPS.length - 1))}
-                className="min-h-[44px] inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-neutral-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-colors active:scale-95"
+                aria-label="Ir para a etapa anterior do método"
+                className="min-h-[44px] inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-neutral-300 bg-white/5 hover:bg-white/10 border border-white/10 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Anterior</span>
               </button>
               <button
                 type="button"
                 onClick={() => setCurrentStep((prev) => (prev < METHOD_STEPS.length - 1 ? prev + 1 : 0))}
-                className="min-h-[44px] inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#FF5E14] hover:bg-[#E04E0B] shadow-md transition-all active:scale-95"
+                aria-label={currentStep === METHOD_STEPS.length - 1 ? 'Reiniciar método na etapa 1' : 'Avançar para a próxima etapa do método'}
+                className="min-h-[44px] inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#FF5E14] hover:bg-[#E04E0B] shadow-md transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <span>{currentStep === METHOD_STEPS.length - 1 ? 'Reiniciar Método' : 'Próxima Etapa'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </button>
             </div>
           </div>

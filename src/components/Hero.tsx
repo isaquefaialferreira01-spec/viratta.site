@@ -53,10 +53,10 @@ export const Hero: React.FC = () => {
                 href={copy.banner_link || getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FF5E14] text-white text-[11px] font-bold hover:bg-[#E04E0B] transition-colors"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] gap-1 px-3 py-1.5 rounded-full bg-[#FF5E14] text-white text-[11px] font-bold hover:bg-[#E04E0B] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <span>{copy.banner_button}</span>
-                <ArrowUpRight className="w-3 h-3" />
+                <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
               </a>
             )}
           </div>
@@ -124,7 +124,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 max-w-sm sm:max-w-none mx-auto"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto px-4 max-w-sm sm:max-w-none mx-auto"
           >
             {/* Primary CTA — QUERO VIRAR A CHAVE */}
             <a

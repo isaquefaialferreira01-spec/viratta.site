@@ -55,9 +55,14 @@ export const CustomerJourney: React.FC = () => {
             return (
               <div
                 key={step.name}
+                tabIndex={0}
+                role="button"
+                aria-label={`Etapa ${idx + 1}: ${step.name} - ${step.subtitle}`}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className="relative z-10 flex flex-col items-center text-center group cursor-pointer"
+                onFocus={() => setHoveredIdx(idx)}
+                onBlur={() => setHoveredIdx(null)}
+                className="relative z-10 flex flex-col items-center text-center group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] rounded-2xl p-1"
               >
                 {/* Visual Node */}
                 <div
@@ -91,12 +96,14 @@ export const CustomerJourney: React.FC = () => {
         </div>
 
         {/* Mobile / Tablet Vertical Flow */}
-        <div className="lg:hidden flex flex-col space-y-2.5">
+        <div className="lg:hidden flex flex-col space-y-3">
           {JOURNEY_STEPS.map((step, idx) => (
-            <div
+            <button
               key={step.name}
+              type="button"
               onClick={() => setHoveredIdx(hoveredIdx === idx ? null : idx)}
-              className={`flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all duration-200 active:scale-[0.99] ${
+              aria-label={`Etapa ${idx + 1}: ${step.name} - ${step.subtitle}`}
+              className={`w-full text-left min-h-[52px] flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all duration-200 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] ${
                 hoveredIdx === idx
                   ? 'bg-[#0E0F12] border-[#FF5E14]/60 shadow-md'
                   : 'bg-[#0E0F12]/80 border-white/5'
@@ -112,9 +119,9 @@ export const CustomerJourney: React.FC = () => {
                 </div>
               </div>
               {idx < JOURNEY_STEPS.length - 1 && (
-                <ChevronRight className="w-4 h-4 text-neutral-600 shrink-0" />
+                <ChevronRight className="w-4 h-4 text-neutral-600 shrink-0" aria-hidden="true" />
               )}
-            </div>
+            </button>
           ))}
         </div>
 

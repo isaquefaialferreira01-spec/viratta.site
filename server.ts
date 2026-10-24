@@ -13,6 +13,7 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 // Helper for intelligent offline/fallback analysis
 function getSmartFallbackAnalysis(userPrompt: string): { analysis: string; serviceNeeded: string } {

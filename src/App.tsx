@@ -10,7 +10,6 @@ import { BusinessNeedsSection } from './components/BusinessNeedsSection';
 import { StructuralNumbers } from './components/StructuralNumbers';
 import { InteractiveServices } from './components/InteractiveServices';
 import { BrandStatement } from './components/BrandStatement';
-import { BeforeAfterPerception } from './components/BeforeAfterPerception';
 import { TargetAudience } from './components/TargetAudience';
 import { MethodSequence } from './components/MethodSequence';
 import { CustomerJourney } from './components/CustomerJourney';
@@ -40,6 +39,14 @@ function PublicWebsite() {
 
   return (
     <div className="min-h-screen bg-[#070708] text-[#F3F4F6] selection:bg-[#FF5E14] selection:text-white relative">
+      {/* Accessible Skip to Content Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2.5 focus:bg-[#FF5E14] focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white transition-all text-xs uppercase tracking-wider"
+      >
+        Pular para o conteúdo
+      </a>
+
       {/* Admin Preview Mode Floating Bar */}
       <AdminPreviewBar />
 
@@ -49,7 +56,7 @@ function PublicWebsite() {
       {/* 09 — NAVIGATION */}
       <Navbar />
 
-      <main className="relative">
+      <main id="main-content" tabIndex={-1} className="relative outline-none">
         {/* 10 & 11 — HERO & HERO MICROCOPY */}
         {sections.hero !== false && <Hero />}
 
@@ -70,9 +77,6 @@ function PublicWebsite() {
 
         {/* 15 — BIG BRAND STATEMENT */}
         {sections.brand_statement !== false && <BrandStatement />}
-
-        {/* 16 — BEFORE / AFTER PERCEPTION SLIDER */}
-        {sections.perception_slider !== false && <BeforeAfterPerception />}
 
         {/* 17 — TARGET AUDIENCE / MOVING TICKER */}
         {sections.target_audience !== false && <TargetAudience />}

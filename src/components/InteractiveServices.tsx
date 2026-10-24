@@ -55,11 +55,12 @@ export const InteractiveServices: React.FC = () => {
               href={getWhatsAppUrl(`Olá! Gostaria de conversar sobre o serviço de ${service.name}.`)}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Serviço ${service.number}: ${service.name}. ${service.description} (abre WhatsApp da VIRATTA)`}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-20px" }}
               transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative block w-full rounded-xl sm:rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-[#FF5E14]/40 active:border-[#FF5E14]/60 hover:bg-[#121318] active:bg-[#121318] px-3.5 py-3 sm:px-6 sm:py-4.5 lg:px-7 lg:py-5 transition-all duration-200 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
+              className="group relative block w-full min-h-[56px] rounded-xl sm:rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-[#FF5E14]/40 active:border-[#FF5E14]/60 hover:bg-[#121318] active:bg-[#121318] px-3.5 py-3 sm:px-6 sm:py-4.5 lg:px-7 lg:py-5 transition-all duration-200 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
             >
               {/* Top Row: Number, Service Name, Subtle Arrow Indicator */}
               <div className="flex items-center justify-between gap-2.5">

@@ -75,12 +75,12 @@ export const FloatingWhatsApp: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowTooltip(false)}
-            className="absolute top-2 right-2 text-neutral-400 hover:text-white p-1 min-w-[32px] min-h-[32px] flex items-center justify-center"
-            aria-label="Fechar mensagem"
+            className="absolute top-1 right-1 text-neutral-400 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
+            aria-label="Fechar mensagem informativa"
           >
-            <X className="w-3.5 h-3.5" />
+            <X className="w-3.5 h-3.5" aria-hidden="true" />
           </button>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1 pr-12">
             <VirattaSymbol className="w-3.5 h-3.5" />
             <span className="text-[10px] font-bold text-white uppercase tracking-wider">
               Viratta Marketing

@@ -16,16 +16,11 @@
     <script>
       (function() {
         try {
-          var t = localStorage.getItem('viratta_theme');
-          if (t === 'light') {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-            document.documentElement.setAttribute('data-theme', 'light');
-          } else {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-            document.documentElement.setAttribute('data-theme', 'dark');
-          }
+          // Permanently lock VIRATTA dark design identity
+          localStorage.removeItem('viratta_theme');
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+          document.documentElement.setAttribute('data-theme', 'dark');
         } catch(e) {}
       })();
     </script>

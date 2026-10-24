@@ -1,35 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { SITE_CONFIG } from '../config/siteConfig';
 import { useCms } from '../context/CmsContext';
 import { Instagram, ArrowUpRight, Play, Film } from 'lucide-react';
-
-const REELS_PREVIEWS = [
-  {
-    title: "Como gravar vídeos com celular sem parecer caseiro",
-    views: "14.2k",
-    type: "Reels",
-    image: "/src/assets/images/viratta_audiovisual_studio_1791218069074.jpg",
-  },
-  {
-    title: "Antes e Depois: A identidade de um bistrô local",
-    views: "28.6k",
-    type: "Reels",
-    image: "/src/assets/images/portfolio_gastronomy_1791218028786.jpg",
-  },
-  {
-    title: "Por que seu cliente pede desconto e como resolver",
-    views: "19.8k",
-    type: "Reels",
-    image: "/src/assets/images/portfolio_clinic_1791218038116.jpg",
-  },
-  {
-    title: "Bastidores de captação cinematográfica na oficina",
-    views: "22.4k",
-    type: "Reels",
-    image: "/src/assets/images/portfolio_automotive_1791218057376.jpg",
-  },
-];
+import { VirattaSymbol } from './brand/VirattaSymbol';
+import { DEFAULT_REELS } from '../lib/cmsDefaults';
+import { ReelItem } from '../types/cms';
 
 export const InstagramFeed: React.FC = () => {
   const { content } = useCms();
@@ -38,10 +14,27 @@ export const InstagramFeed: React.FC = () => {
 
   const kicker = copy.instagram_kicker || "Bastidores & Conteúdo";
   const headline = copy.instagram_headline || "A VIRATTA ACONTECE POR AQUI.";
-  const buttonText = copy.instagram_button_text || `Seguir @virattamarketing`;
+  const buttonText = copy.instagram_button_text || "Seguir @viratta.marketing";
 
-  const activeReels = (content?.reels || []).filter((r) => r.is_active);
-  const displayReels = activeReels.length > 0 ? activeReels : REELS_PREVIEWS;
+  // Active items from CMS or fallback to real default posts
+  const rawList = (content?.reels && content.reels.length > 0) ? content.reels : DEFAULT_REELS;
+  const activeItems: ReelItem[] = rawList
+    .filter((r) => r.is_active !== false)
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+
+  // Track failed images to show graceful VIRATTA fallback placeholder
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string) => {
+    setImageErrors((prev) => ({ ...prev, [id]: true }));
+  };
+
+  // Dynamic responsive grid: 3 items are cleanly centered; 4+ span across the full 4 columns
+  const gridLayoutClass = activeItems.length === 3
+    ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-4 sm:gap-6"
+    : activeItems.length <= 2
+    ? "grid grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto gap-4 sm:gap-6"
+    : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6";
 
   return (
     <section 
@@ -74,60 +67,120 @@ export const InstagramFeed: React.FC = () => {
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[44px] inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-white hover:text-[#FF5E14] transition-colors py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 self-start sm:self-auto active:scale-95"
+            className="min-h-[44px] inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-white hover:text-[#FF5E14] transition-colors py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 self-start sm:self-auto active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
+            aria-label="Abrir perfil oficial da VIRATTA no Instagram (@viratta.marketing) em nova aba"
           >
             <span>{buttonText}</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </motion.div>
 
-        {/* Reels Previews Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
-          {displayReels.map((reel: any, idx: number) => {
-            const reelLink = reel.url || instagramUrl;
+        {/* Real Instagram Content Grid */}
+        <div className={gridLayoutClass}>
+          {activeItems.map((item, idx) => {
+            const targetUrl = item.instagram_url || item.url || instagramUrl;
+            
+            // Guarantee fallback to matching real post cover if cover_image was empty in cached state
+            const defaultMatch = DEFAULT_REELS.find(
+              (d) => d.id === item.id || (d.instagram_url && (d.instagram_url === item.instagram_url || d.instagram_url === item.url))
+            );
+            const coverImage = item.cover_image || item.image || defaultMatch?.cover_image || '';
+            const isReel = (item.type || '').toLowerCase() === 'reel';
+            const hasValidImage = Boolean(coverImage && !imageErrors[item.id]);
+
             return (
               <motion.a
-                key={reel.id || idx}
-                href={reelLink}
+                key={item.id || idx}
+                href={targetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Abrir no Instagram: ${item.title || 'Publicação VIRATTA'} (abre em nova aba)`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative aspect-[9/16] rounded-xl sm:rounded-2xl overflow-hidden bg-[#0E0F12] border border-white/10 hover:border-[#FF5E14]/50 transition-all duration-300 flex flex-col justify-between p-3 sm:p-4 shadow-lg active:scale-[0.98]"
+                className="group relative aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-[#0E0F12] border border-white/10 hover:border-[#FF5E14]/50 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 shadow-xl active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
               >
-                {/* Cover Image */}
-                <img
-                  src={reel.image}
-                  alt={reel.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/40 group-hover:via-black/20 transition-all" />
+                {/* Visual Cover Layer: Real Post Image */}
+                {hasValidImage ? (
+                  <>
+                    <img
+                      src={coverImage}
+                      alt={item.title || 'Capa da publicação oficial VIRATTA'}
+                      onError={() => handleImageError(item.id)}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/20 group-hover:via-black/20 transition-all pointer-events-none" />
+                  </>
+                ) : (
+                  /* Elegant VIRATTA Branded Fallback Placeholder */
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#131418] via-[#0E0F12] to-[#070708] flex flex-col items-center justify-center p-6 text-center select-none overflow-hidden">
+                    {/* Ambient subtle backlight glow */}
+                    <div 
+                      aria-hidden="true" 
+                      className="absolute w-32 h-32 bg-[#FF5E14]/15 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500" 
+                    />
 
-                {/* Top Tag & Views */}
-                <div className="relative z-10 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-white/90">
-                  <span className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 rounded bg-black/70 backdrop-blur-md">
-                    <Film className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FF5E14]" />
-                    <span>{reel.type || 'Reels'}</span>
-                  </span>
-                  <span className="text-white/70">{reel.views}</span>
-                </div>
+                    {/* Official Viratta Symbol */}
+                    <div className="relative z-10 transition-transform duration-500 group-hover:scale-110">
+                      <VirattaSymbol className="w-12 h-12 sm:w-14 sm:h-14 opacity-80 group-hover:opacity-100" glow />
+                    </div>
 
-                {/* Center Play Icon */}
-                <div className="relative z-10 my-auto flex justify-center">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-[#FF5E14] group-hover:border-transparent transition-all">
-                    <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current ml-0.5" />
+                    <div className="relative z-10 mt-4 text-[11px] font-mono uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
+                      @viratta.marketing
+                    </div>
+                    <div className="relative z-10 mt-1 text-[10px] text-neutral-400 group-hover:text-[#FF5E14] transition-colors inline-flex items-center gap-1 font-semibold">
+                      <span>Ver no Instagram</span>
+                      <ArrowUpRight className="w-3 h-3" />
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
                   </div>
+                )}
+
+                {/* Top Badge: Type Indicator (Post vs Reels) — No Fictitious Metrics */}
+                <div className="relative z-10 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-white/90">
+                  <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 shadow-sm">
+                    {isReel ? (
+                      <>
+                        <Film className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FF5E14]" />
+                        <span>Reels</span>
+                      </>
+                    ) : (
+                      <>
+                        <Instagram className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FF5E14]" />
+                        <span>Post</span>
+                      </>
+                    )}
+                  </span>
+                  
+                  {/* External icon micro-indicator on hover */}
+                  <span className="w-6 h-6 rounded-md bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 group-hover:text-white group-hover:bg-[#FF5E14] transition-all">
+                    <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </div>
 
-                {/* Bottom Caption */}
-                <div className="relative z-10">
-                  <p className="text-[11px] sm:text-xs md:text-sm font-semibold text-white leading-snug line-clamp-2">
-                    {reel.title}
-                  </p>
+                {/* Center Play Icon for Reels Only (Posts DO NOT show play icon) */}
+                {isReel && (
+                  <div className="relative z-10 my-auto flex justify-center">
+                    <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-[#FF5E14] group-hover:border-transparent transition-all shadow-xl">
+                      <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current ml-0.5" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Caption (Real title without fake numbers) */}
+                <div className="relative z-10 mt-auto pt-4">
+                  {item.title && (
+                    <p className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 drop-shadow-md">
+                      {item.title}
+                    </p>
+                  )}
+                  <span className="block mt-1 text-[10px] sm:text-[11px] font-mono text-neutral-300 group-hover:text-[#FF5E14] transition-colors">
+                    instagram.com/p/...
+                  </span>
                 </div>
               </motion.a>
             );

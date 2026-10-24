@@ -233,10 +233,11 @@ ${result.serviceNeeded ? result.serviceNeeded : 'Comunicação e Posicionamento'
                     <button
                       type="button"
                       onClick={() => setDiagnosis(null)}
-                      className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
+                      aria-label="Fazer nova consulta de diagnóstico"
                       title="Fazer nova consulta"
                     >
-                      <RotateCcw className="w-3 h-3" />
+                      <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Nova consulta</span>
                     </button>
                   </div>
@@ -266,11 +267,11 @@ ${result.serviceNeeded ? result.serviceNeeded : 'Comunicação e Posicionamento'
                       href={getCustomWhatsAppUrl(diagnosis)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#FF5E14] hover:bg-[#E04E0B] text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-[0_4px_25px_rgba(255,94,20,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] group"
+                      className="inline-flex items-center justify-center min-h-[48px] gap-2 px-5 py-3 rounded-xl bg-[#FF5E14] hover:bg-[#E04E0B] text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-[0_4px_25px_rgba(255,94,20,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
-                      <MessageSquare className="w-4 h-4 fill-white/20" />
+                      <MessageSquare className="w-4 h-4 fill-white/20" aria-hidden="true" />
                       <span>Quero falar com a Viratta</span>
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                     </a>
                   </div>
                 </div>

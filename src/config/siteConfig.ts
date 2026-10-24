@@ -5,8 +5,8 @@ export const SITE_CONFIG = {
   whatsappDisplay: "(11) 99999-9999",
   whatsappDefaultMessage:
     "Olá! Conheci a VIRATTA pelo site e quero entender como podemos transformar a comunicação da minha empresa.",
-  instagramUrl: "https://instagram.com/virattamarketing",
-  instagramHandle: "@virattamarketing",
+  instagramUrl: "https://www.instagram.com/viratta.marketing/",
+  instagramHandle: "@viratta.marketing",
   email: "contato@virattamarketing.com.br",
   location: "São Paulo, SP — Atendimento Brasil",
 };

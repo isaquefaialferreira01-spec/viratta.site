@@ -6,13 +6,32 @@ const PUBLISHED_STORAGE_KEY = 'viratta_cms_published_v1';
 const DRAFT_STORAGE_KEY = 'viratta_cms_draft_v1';
 const VERSIONS_STORAGE_KEY = 'viratta_cms_versions_v1';
 
+function normalizeReels(items?: any[]): any[] {
+  if (!Array.isArray(items) || items.length === 0) {
+    return DEFAULT_CMS_STATE.reels || [];
+  }
+  return items.map((item) => {
+    if (!item.cover_image && !item.image) {
+      const match = (DEFAULT_CMS_STATE.reels || []).find(
+        (d) => d.id === item.id || (d.instagram_url && (d.instagram_url === item.instagram_url || d.instagram_url === item.url))
+      );
+      if (match?.cover_image) {
+        return { ...item, cover_image: match.cover_image, image: match.cover_image };
+      }
+    }
+    return item;
+  });
+}
+
 /**
  * Apply global brand CSS variables and fonts dynamically to the document root
  */
 export function applyBrandCssVariables(colors: {
   primary_color: string;
+  accent_color?: string;
   background_color: string;
   text_color: string;
+  secondary_text_color?: string;
   surface_color: string;
   border_color: string;
   font_family?: string;
@@ -22,8 +41,10 @@ export function applyBrandCssVariables(colors: {
 
   const root = document.documentElement;
   if (colors.primary_color) root.style.setProperty('--brand-primary', colors.primary_color);
+  if (colors.accent_color) root.style.setProperty('--brand-accent', colors.accent_color);
   if (colors.background_color) root.style.setProperty('--brand-background', colors.background_color);
   if (colors.text_color) root.style.setProperty('--brand-text', colors.text_color);
+  if (colors.secondary_text_color) root.style.setProperty('--brand-text-secondary', colors.secondary_text_color);
   if (colors.surface_color) root.style.setProperty('--brand-surface', colors.surface_color);
   if (colors.border_color) root.style.setProperty('--brand-border', colors.border_color);
 
@@ -73,6 +94,29 @@ export async function fetchPublishedFromSupabase(): Promise<CmsState | null> {
         faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
       };
 
+      // Attempt to load granular items from instagram_content table if present
+      try {
+        const { data: igData, error: igError } = await supabase
+          .from('instagram_content')
+          .select('*')
+          .order('sort_order', { ascending: true });
+        if (!igError && Array.isArray(igData) && igData.length > 0) {
+          remoteState.reels = igData.map((d: any) => ({
+            id: d.id,
+            title: d.title,
+            instagram_url: d.instagram_url,
+            url: d.instagram_url,
+            cover_image: d.cover_image,
+            image: d.cover_image,
+            type: d.type || 'post',
+            sort_order: d.sort_order,
+            is_active: d.is_active !== false,
+            created_at: d.created_at,
+            updated_at: d.updated_at,
+          }));
+        }
+      } catch {}
+
       // Cache locally for instantaneous subsequent rendering
       localStorage.setItem(PUBLISHED_STORAGE_KEY, JSON.stringify(remoteState));
       applyBrandCssVariables(remoteState.appearance);
@@ -107,7 +151,7 @@ export function getPublishedContent(): CmsState {
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
         marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
-        reels: Array.isArray(parsed.reels) ? parsed.reels : (DEFAULT_CMS_STATE.reels || []),
+        reels: normalizeReels(parsed.reels),
         faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
       };
     }
@@ -138,7 +182,7 @@ export function getDraftContent(): CmsState {
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
         marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
-        reels: Array.isArray(parsed.reels) ? parsed.reels : (DEFAULT_CMS_STATE.reels || []),
+        reels: normalizeReels(parsed.reels),
         faq_items: Array.isArray(parsed.faq_items) ? parsed.faq_items : (DEFAULT_CMS_STATE.faq_items || []),
       };
     }
@@ -224,6 +268,25 @@ export async function publishContent(draftState: CmsState): Promise<{ success: b
             published_data: publishedState,
             updated_at: new Date().toISOString(),
           });
+
+        // Sync items to instagram_content table in Supabase
+        try {
+          const items = publishedState.reels || [];
+          for (const item of items) {
+            await supabase.from('instagram_content').upsert({
+              id: item.id,
+              title: item.title,
+              instagram_url: item.instagram_url || item.url,
+              cover_image: item.cover_image || item.image || '',
+              type: item.type || 'post',
+              sort_order: item.sort_order ?? 1,
+              is_active: item.is_active !== false,
+              updated_at: new Date().toISOString(),
+            });
+          }
+        } catch (igErr) {
+          console.warn('Supabase instagram_content sync notice:', igErr);
+        }
       } catch (dbErr: any) {
         console.warn('Supabase remote sync warning (local publish preserved):', dbErr?.message || dbErr);
       }
