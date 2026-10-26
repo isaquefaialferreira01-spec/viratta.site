@@ -41,7 +41,7 @@ export const Hero: React.FC = () => {
     <section
       id="inicio"
       data-section-title="Início"
-      className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-between pt-24 sm:pt-32 pb-8 sm:pb-12 overflow-hidden bg-[#070708]"
+      className="relative min-h-[100dvh] min-h-[100svh] flex flex-col justify-between pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:pt-32 pb-[calc(2rem+env(safe-area-inset-bottom,0px))] sm:pb-12 overflow-hidden bg-[#070708]"
     >
       {/* Optional Announcement Banner controlled by CMS */}
       {copy.banner_enabled && copy.banner_text && (
@@ -101,7 +101,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[2rem] xs:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black tracking-[-0.03em] sm:tracking-[-0.035em] text-white leading-[1.08] sm:leading-[0.98] max-w-5xl break-words"
+            className="text-[1.85rem] xs:text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black tracking-[-0.03em] sm:tracking-[-0.035em] text-white leading-[1.08] sm:leading-[0.98] max-w-5xl break-words"
           >
             <span className="block">{title1}</span>
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E14] via-[#FFA05C] to-[#FF5E14] drop-shadow-[0_0_30px_rgba(255,94,20,0.35)]">

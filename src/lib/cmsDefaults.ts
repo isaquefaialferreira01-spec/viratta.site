@@ -305,7 +305,6 @@ export const DEFAULT_CMS_STATE: CmsState = {
     brand_statement: true,
     target_audience: true,
     method: true,
-    customer_journey: true,
     portfolio: true,
     testimonials: true,
     difference: true,

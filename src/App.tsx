@@ -12,7 +12,6 @@ import { InteractiveServices } from './components/InteractiveServices';
 import { BrandStatement } from './components/BrandStatement';
 import { TargetAudience } from './components/TargetAudience';
 import { MethodSequence } from './components/MethodSequence';
-import { CustomerJourney } from './components/CustomerJourney';
 import { PortfolioShowcase } from './components/PortfolioShowcase';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { VirattaDifference } from './components/VirattaDifference';
@@ -83,9 +82,6 @@ function PublicWebsite() {
 
         {/* 18 — METHOD (O PROCESSO VIRATTA) */}
         {sections.method !== false && <MethodSequence />}
-
-        {/* 19 — CUSTOMER JOURNEY */}
-        {sections.customer_journey !== false && <CustomerJourney />}
 
         {/* 20 — PORTFOLIO (CASOS DE IMPACTO) */}
         {sections.portfolio !== false && <PortfolioShowcase />}

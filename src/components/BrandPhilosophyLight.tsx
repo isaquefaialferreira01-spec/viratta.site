@@ -26,7 +26,7 @@ export const BrandPhilosophyLight: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[-0.035em] text-[#080809] leading-[1.02] sm:leading-[0.98] text-balance"
+          className="text-2xl xs:text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-[-0.035em] text-[#080809] leading-[1.05] sm:leading-[0.98] text-balance break-words"
         >
           BONS NEGÓCIOS <br />
           NÃO DEVERIAM <br />

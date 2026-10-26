@@ -49,7 +49,7 @@ export const PortfolioShowcase: React.FC = () => {
       {displayLogos.map((client, idx) => (
         <div
           key={`${sequenceKey}-${client.name}-${idx}`}
-          className="group w-44 sm:w-60 md:w-68 h-20 sm:h-24 md:h-28 rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-white/10 transition-colors duration-300 p-4 sm:p-6 flex items-center justify-center shrink-0 select-none shadow-sm"
+          className="group w-36 xs:w-44 sm:w-60 md:w-68 h-16 xs:h-20 sm:h-24 md:h-28 rounded-xl sm:rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-white/10 transition-colors duration-300 p-3 xs:p-4 sm:p-6 flex items-center justify-center shrink-0 select-none shadow-sm"
         >
           <img
             src={client.src}

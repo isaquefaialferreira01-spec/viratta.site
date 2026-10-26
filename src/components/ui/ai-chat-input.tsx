@@ -55,7 +55,7 @@ export function AiChatInput({
           }}
           placeholder={placeholder}
           aria-label={placeholder}
-          className="block w-full resize-none bg-transparent px-2.5 py-1.5 text-[15px] sm:text-base text-white outline-none placeholder:text-neutral-400 font-normal leading-relaxed"
+          className="block w-full resize-none bg-transparent px-2.5 py-1.5 text-base text-white outline-none placeholder:text-neutral-400 font-normal leading-relaxed"
         />
         <div className="mt-2.5 flex items-center justify-between gap-2">
           <button

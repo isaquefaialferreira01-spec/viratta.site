@@ -102,7 +102,7 @@ export interface SectionVisibility {
   perception_slider?: boolean;
   target_audience: boolean;
   method: boolean;
-  customer_journey: boolean;
+  customer_journey?: boolean;
   portfolio: boolean;
   testimonials: boolean;
   difference: boolean;
