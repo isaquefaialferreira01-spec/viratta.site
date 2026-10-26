@@ -48,7 +48,7 @@ export async function verifyAdminAuthorization(email: string, userId?: string): 
         // If not in either, explicitly deny
         const isWhitelisted = [
           'admin@virattamarketing.com.br',
-          'contato@virattamarketing.com.br',
+          'vyra.agenciamarketing@gmail.com',
           'midia.novaviseu@gmail.com',
         ].includes(cleanEmail);
 
@@ -67,7 +67,7 @@ export async function verifyAdminAuthorization(email: string, userId?: string): 
   // Fallback authorization check for initial setup, directors and project owner
   const authorizedLocalEmails = [
     'admin@virattamarketing.com.br',
-    'contato@virattamarketing.com.br',
+    'vyra.agenciamarketing@gmail.com',
     'midia.novaviseu@gmail.com', // User email from runtime environment
   ];
 

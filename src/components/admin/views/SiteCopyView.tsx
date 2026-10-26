@@ -4,7 +4,7 @@ import { SiteCopy } from '../../../types/cms';
 import { Type, RotateCcw, Sparkles } from 'lucide-react';
 import { DEFAULT_CMS_STATE } from '../../../lib/cmsDefaults';
 
-type CopySectionGroup = 'hero' | 'positioning' | 'manifesto' | 'services' | 'cta';
+type CopySectionGroup = 'hero' | 'positioning' | 'manifesto' | 'services' | 'diagnostic' | 'cta';
 
 export const SiteCopyView: React.FC = () => {
   const { draft, updateCopy } = useCms();
@@ -82,6 +82,15 @@ export const SiteCopyView: React.FC = () => {
           }`}
         >
           Serviços & Portfólio
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveGroup('diagnostic')}
+          className={`px-4 py-2 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
+            activeGroup === 'diagnostic' ? 'bg-white/10 text-white font-semibold' : 'text-neutral-400 hover:text-white'
+          }`}
+        >
+          Diagnóstico Interativo
         </button>
         <button
           type="button"
@@ -252,6 +261,97 @@ export const SiteCopyView: React.FC = () => {
                 value={copy.portfolio_headline || ''}
                 onChange={(e) => handleUpdate('portfolio_headline', e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm font-bold focus:outline-none focus:border-[#FF5E14]"
+              />
+            </div>
+          </div>
+        )}
+
+        {activeGroup === 'diagnostic' && (
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                Kicker do Diagnóstico
+              </label>
+              <input
+                type="text"
+                value={copy.diagnostic_kicker || ''}
+                onChange={(e) => handleUpdate('diagnostic_kicker', e.target.value)}
+                placeholder="DIAGNÓSTICO ESTRATÉGICO"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                Título Principal
+              </label>
+              <input
+                type="text"
+                value={copy.diagnostic_headline || ''}
+                onChange={(e) => handleUpdate('diagnostic_headline', e.target.value)}
+                placeholder="O QUE ESTÁ TRAVANDO O SEU NEGÓCIO?"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm font-bold focus:outline-none focus:border-[#FF5E14]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                Subtítulo de Instrução
+              </label>
+              <textarea
+                rows={2}
+                value={copy.diagnostic_subtitle || ''}
+                onChange={(e) => handleUpdate('diagnostic_subtitle', e.target.value)}
+                placeholder="Conte para a VIRATTA o que você quer melhorar. Vamos transformar sua dificuldade em direção."
+                className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm leading-relaxed focus:outline-none focus:border-[#FF5E14]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                Exemplo de Placeholder do Campo
+              </label>
+              <input
+                type="text"
+                value={copy.diagnostic_placeholder || ''}
+                onChange={(e) => handleUpdate('diagnostic_placeholder', e.target.value)}
+                placeholder="Ex.: Meu Instagram não gera clientes, minha marca parece amadora e não sei que tipo de conteúdo produzir."
+                className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                  Resposta Imediata (Direção)
+                </label>
+                <input
+                  type="text"
+                  value={copy.diagnostic_response || ''}
+                  onChange={(e) => handleUpdate('diagnostic_response', e.target.value)}
+                  placeholder="Entendi. A VIRATTA pode te ajudar a transformar isso em uma estratégia mais clara."
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                  Texto do Botão CTA (WhatsApp)
+                </label>
+                <input
+                  type="text"
+                  value={copy.diagnostic_cta_button || ''}
+                  onChange={(e) => handleUpdate('diagnostic_cta_button', e.target.value)}
+                  placeholder="FALAR COM A VIRATTA"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm font-bold focus:outline-none focus:border-[#FF5E14]"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-mono uppercase text-neutral-400 mb-1.5">
+                Microcopy Inferior
+              </label>
+              <input
+                type="text"
+                value={copy.diagnostic_microcopy || ''}
+                onChange={(e) => handleUpdate('diagnostic_microcopy', e.target.value)}
+                placeholder="Sem formulário gigante. Conte o problema e começamos por aí."
+                className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
               />
             </div>
           </div>

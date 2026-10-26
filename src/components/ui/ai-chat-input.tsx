@@ -8,8 +8,9 @@ export function AiChatInput({
   suggestions = [],
   busy = false,
   onStop,
-  placeholder = "Pergunte qualquer coisa",
+  placeholder = "Conte o que está travando o seu negócio",
   className,
+  id = "ai-diagnostic-textarea",
 }: {
   onSend: (text: string) => void;
   suggestions?: string[];
@@ -17,12 +18,14 @@ export function AiChatInput({
   onStop?: () => void;
   placeholder?: string;
   className?: string;
+  id?: string;
 }) {
   const [text, setText] = useState("");
   const area = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    const el = area.current!;
+    const el = area.current;
+    if (!el) return;
     el.style.height = "0px";
     el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
   }, [text]);
@@ -38,11 +41,11 @@ export function AiChatInput({
     <div className={cn("w-full max-w-2xl", className)}>
       {/* Main Input Bar - Black background with white text */}
       <div className="rounded-3xl border border-white/15 bg-black p-3.5 shadow-2xl transition-all focus-within:border-[#FF5E14]/70 focus-within:ring-1 focus-within:ring-[#FF5E14]/40">
-        <label htmlFor="business-needs-textarea" className="sr-only">
+        <label htmlFor={id} className="sr-only">
           {placeholder}
         </label>
         <textarea
-          id="business-needs-textarea"
+          id={id}
           ref={area}
           rows={1}
           value={text}
@@ -55,7 +58,7 @@ export function AiChatInput({
           }}
           placeholder={placeholder}
           aria-label={placeholder}
-          className="block w-full resize-none bg-transparent px-2.5 py-1.5 text-base text-white outline-none placeholder:text-neutral-400 font-normal leading-relaxed"
+          className="block w-full resize-none bg-transparent px-2.5 py-1.5 text-base text-white outline-none placeholder:text-neutral-500 font-normal leading-relaxed"
         />
         <div className="mt-2.5 flex items-center justify-between gap-2">
           <button
@@ -98,7 +101,10 @@ export function AiChatInput({
             <button
               key={s}
               type="button"
-              onClick={() => setText(s)}
+              onClick={() => {
+                setText(s);
+                area.current?.focus();
+              }}
               className="rounded-full border border-white/20 bg-black px-4 py-2.5 min-h-[44px] inline-flex items-center justify-center text-xs sm:text-sm font-medium text-white hover:border-[#FF5E14] hover:text-[#FF5E14] hover:bg-neutral-950 transition-all active:scale-95 shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
             >
               {s}

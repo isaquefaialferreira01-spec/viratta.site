@@ -62,11 +62,11 @@ export const ContactsTab: React.FC = () => {
               type="text"
               value={settings.whatsapp_ddd}
               onChange={(e) => updateSettings({ whatsapp_ddd: e.target.value })}
-              placeholder="11"
+              placeholder="21"
               maxLength={3}
               className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14] font-mono"
             />
-            <span className="text-[10px] text-neutral-500 mt-1 block">Ex: 11, 21, 19</span>
+            <span className="text-[10px] text-neutral-500 mt-1 block">Ex: 21, 11, 19</span>
           </div>
 
           <div className="sm:col-span-6">
@@ -77,7 +77,7 @@ export const ContactsTab: React.FC = () => {
               type="text"
               value={settings.whatsapp_number}
               onChange={(e) => updateSettings({ whatsapp_number: e.target.value })}
-              placeholder="999999999"
+              placeholder="993074326"
               className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14] font-mono"
             />
             <span className="text-[10px] text-neutral-500 mt-1 block">Apenas números (8 ou 9 dígitos)</span>
@@ -153,7 +153,7 @@ export const ContactsTab: React.FC = () => {
                 type="email"
                 value={settings.email}
                 onChange={(e) => updateSettings({ email: e.target.value })}
-                placeholder="contato@virattamarketing.com.br"
+                placeholder="vyra.agenciamarketing@gmail.com"
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
               />
             </div>
@@ -169,7 +169,7 @@ export const ContactsTab: React.FC = () => {
                 type="text"
                 value={settings.location}
                 onChange={(e) => updateSettings({ location: e.target.value })}
-                placeholder="São Paulo, SP — Atendimento Brasil"
+                placeholder="Rio de Janeiro"
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5E14]"
               />
             </div>

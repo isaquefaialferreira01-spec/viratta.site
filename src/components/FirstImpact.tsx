@@ -9,12 +9,12 @@ export const FirstImpact: React.FC = () => {
 
   const kicker = copy.first_impact_kicker || "O Posicionamento";
   const headline = copy.first_impact_headline || "SER PEQUENO NÃO SIGNIFICA PARECER PEQUENO.";
-  const subtitle = copy.first_impact_subtitle || "“Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”";
+  const subtitle = copy.first_impact_subtitle || "“Comércio local não precisa ter comunicação pequena. Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”";
 
   return (
     <section 
       data-section-title="Posicionamento"
-      className="relative py-16 sm:py-28 lg:py-32 bg-[#090A0C] border-y border-white/5 overflow-hidden"
+      className="relative py-12 sm:py-24 lg:py-32 bg-[#090A0C] border-y border-white/5 overflow-hidden"
     >
       {/* Decorative official symbol silhouette watermark */}
       <div 

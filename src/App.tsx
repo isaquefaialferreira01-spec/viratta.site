@@ -6,7 +6,6 @@ import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FirstImpact } from './components/FirstImpact';
-import { BusinessNeedsSection } from './components/BusinessNeedsSection';
 import { StructuralNumbers } from './components/StructuralNumbers';
 import { InteractiveServices } from './components/InteractiveServices';
 import { BrandStatement } from './components/BrandStatement';
@@ -20,6 +19,7 @@ import { AboutViratta } from './components/AboutViratta';
 import { InfiniteMarquee } from './components/InfiniteMarquee';
 import { InstagramFeed } from './components/InstagramFeed';
 import { FAQSection } from './components/FAQSection';
+import { BusinessDiagnosticSection } from './components/BusinessDiagnosticSection';
 import { FinalConversion } from './components/FinalConversion';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
@@ -62,9 +62,6 @@ function PublicWebsite() {
         {/* 12 — FIRST IMPACT SECTION */}
         {sections.first_impact !== false && <FirstImpact />}
 
-        {/* NEW SECTION — BUSINESS NEEDS / AI CHAT (THIRD SECTION) */}
-        {sections.business_needs !== false && <BusinessNeedsSection />}
-
         {/* 13 — NUMBERS / STRUCTURAL DATA */}
         {sections.numbers !== false && <StructuralNumbers />}
 
@@ -106,6 +103,9 @@ function PublicWebsite() {
 
         {/* 26.5 — FAQ (PERGUNTAS FREQUENTES & SEO) */}
         {sections.faq !== false && <FAQSection />}
+
+        {/* NOVA SEÇÃO — DIAGNÓSTICO DO NEGÓCIO */}
+        {sections.diagnostic !== false && <BusinessDiagnosticSection />}
 
         {/* 24 & 25 — FINAL CONVERSION SECTION */}
         {sections.final_conversion !== false && <FinalConversion />}

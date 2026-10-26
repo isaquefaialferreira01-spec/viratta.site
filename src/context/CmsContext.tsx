@@ -204,8 +204,8 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const getWhatsAppUrl = useCallback((customMessage?: string) => {
     const s = activeContent.settings;
     const cleanCountry = s.whatsapp_country.replace(/\D/g, '') || '55';
-    const cleanDdd = s.whatsapp_ddd.replace(/\D/g, '') || '11';
-    const cleanNumber = s.whatsapp_number.replace(/\D/g, '') || '999999999';
+    const cleanDdd = s.whatsapp_ddd.replace(/\D/g, '') || '21';
+    const cleanNumber = s.whatsapp_number.replace(/\D/g, '') || '993074326';
     const fullPhone = `${cleanCountry}${cleanDdd}${cleanNumber}`;
     const message = customMessage || s.whatsapp_default_message || 'Olá! Vim pelo site da VIRATTA.';
     return `https://wa.me/${fullPhone}?text=${encodeURIComponent(message)}`;

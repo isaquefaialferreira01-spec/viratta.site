@@ -101,12 +101,12 @@ export const DEFAULT_FAQ_ITEMS: FaqItem[] = [
 export const DEFAULT_CMS_STATE: CmsState = {
   settings: {
     whatsapp_country: '55',
-    whatsapp_ddd: '11',
-    whatsapp_number: '999999999',
+    whatsapp_ddd: '21',
+    whatsapp_number: '993074326',
     whatsapp_default_message:
       'Olá! Conheci a VIRATTA pelo site e quero entender como podemos transformar a comunicação da minha empresa.',
-    email: 'contato@virattamarketing.com.br',
-    location: 'São Paulo, SP — Atendimento Brasil',
+    email: 'vyra.agenciamarketing@gmail.com',
+    location: 'Rio de Janeiro',
     tagline: 'Destrave a percepção da sua marca.',
   },
   social: {
@@ -158,11 +158,11 @@ export const DEFAULT_CMS_STATE: CmsState = {
     banner_link: '',
     banner_button: 'Falar no WhatsApp',
 
-    hero_kicker: 'VIRATTA MARKETING',
+    hero_kicker: 'MARKETING PARA COMÉRCIOS LOCAIS',
     hero_title_line1: 'SEU NEGÓCIO NÃO PRECISA',
     hero_title_line2: 'PARECER PEQUENO.',
     hero_subtitle:
-      'Estratégia, conteúdo e posicionamento para transformar a forma como sua empresa é percebida.',
+      'Estratégia, conteúdo, design e posicionamento para comércios locais serem vistos, lembrados e escolhidos.',
     hero_cta_primary: 'QUERO VIRAR A CHAVE',
     hero_cta_primary_link: '',
     hero_cta_secondary: 'VER NOSSOS TRABALHOS',
@@ -172,7 +172,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
     first_impact_kicker: 'O Posicionamento',
     first_impact_headline: 'SER PEQUENO NÃO SIGNIFICA PARECER PEQUENO.',
     first_impact_subtitle:
-      '“Uma boa empresa pode perder valor quando sua comunicação não acompanha a qualidade do que ela entrega.”',
+      '“Comércio local não precisa ter comunicação pequena. Uma boa empresa pode perder valor quando sua apresentação não acompanha a qualidade do que ela entrega.”',
 
     brand_statement_quote:
       'NÓS NÃO MUDAMOS O SEU NEGÓCIO. MUDAMOS A FORMA COMO ELE É PERCEBIDO.',
@@ -189,6 +189,19 @@ export const DEFAULT_CMS_STATE: CmsState = {
     instagram_kicker: 'Bastidores & Conteúdo',
     instagram_headline: 'A VIRATTA ACONTECE POR AQUI.',
     instagram_button_text: 'Seguir @viratta.marketing',
+
+    // Nova Seção — Diagnóstico do Negócio
+    diagnostic_kicker: 'DIAGNÓSTICO ESTRATÉGICO',
+    diagnostic_headline: 'O QUE ESTÁ TRAVANDO O SEU NEGÓCIO?',
+    diagnostic_subtitle:
+      'Conte para a VIRATTA o que você quer melhorar. Vamos transformar sua dificuldade em direção.',
+    diagnostic_placeholder:
+      'Ex.: Meu Instagram não gera clientes, minha marca parece amadora e não sei que tipo de conteúdo produzir.',
+    diagnostic_response:
+      'Entendi. A VIRATTA pode te ajudar a transformar isso em uma estratégia mais clara.',
+    diagnostic_cta_button: 'FALAR COM A VIRATTA',
+    diagnostic_microcopy:
+      'Sem formulário gigante. Conte o problema e começamos por aí.',
 
     final_cta_kicker: 'O PRÓXIMO PASSO',
     final_cta_headline: 'SUA EMPRESA JÁ EXISTE. AGORA ELA PRECISA SER PERCEBIDA.',
@@ -241,7 +254,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       number: '01',
       name: 'SOCIAL MEDIA',
       description:
-        'Estratégia, planejamento e gestão para construir uma presença digital consistente e profissional.',
+        'Estratégia e gestão para fortalecer a presença digital do seu negócio local.',
       display_order: 1,
       is_active: true,
     },
@@ -250,7 +263,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       number: '02',
       name: 'FILMMAKER',
       description:
-        'Captação e produção audiovisual para apresentar sua empresa com mais qualidade, personalidade e impacto.',
+        'Conteúdo audiovisual para mostrar seu negócio, seus produtos e sua experiência.',
       display_order: 2,
       is_active: true,
     },
@@ -259,7 +272,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       number: '03',
       name: 'DESIGN GRÁFICO',
       description:
-        'Criativos e materiais visuais que fortalecem a comunicação e a percepção profissional da sua marca.',
+        'Comunicação visual que faz sua empresa parecer mais profissional e reconhecível.',
       display_order: 3,
       is_active: true,
     },
@@ -268,7 +281,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       number: '04',
       name: 'BRANDING / COMUNICAÇÃO VISUAL',
       description:
-        'Construção e organização da identidade visual para tornar sua marca mais reconhecível, coerente e memorável.',
+        'Identidade que diferencia sua empresa no mercado local.',
       display_order: 4,
       is_active: true,
     },
@@ -277,7 +290,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
       number: '05',
       name: 'POSICIONAMENTO ESTRATÉGICO',
       description:
-        'Estratégia para definir como sua empresa se apresenta, se comunica e quer ser percebida pelo mercado.',
+        'Clareza sobre como sua empresa deve ser percebida pelo público.',
       display_order: 5,
       is_active: true,
     },
@@ -298,7 +311,6 @@ export const DEFAULT_CMS_STATE: CmsState = {
   sections: {
     hero: true,
     first_impact: true,
-    business_needs: true,
     numbers: true,
     marquee_services: true,
     services: true,
@@ -313,6 +325,7 @@ export const DEFAULT_CMS_STATE: CmsState = {
     marquee_mantra: true,
     instagram: true,
     faq: true,
+    diagnostic: true,
     final_conversion: true,
   },
   media: [

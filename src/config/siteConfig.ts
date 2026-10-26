@@ -1,14 +1,14 @@
 export const SITE_CONFIG = {
   brandName: "VIRATTA MARKETING",
   tagline: "Destrave a percepção da sua marca.",
-  phone: "5511999999999", // Centralized Brazilian WhatsApp phone
-  whatsappDisplay: "(11) 99999-9999",
+  phone: "5521993074326", // Centralized Brazilian WhatsApp phone
+  whatsappDisplay: "(21) 99307-4326",
   whatsappDefaultMessage:
     "Olá! Conheci a VIRATTA pelo site e quero entender como podemos transformar a comunicação da minha empresa.",
   instagramUrl: "https://www.instagram.com/viratta.marketing/",
   instagramHandle: "@viratta.marketing",
-  email: "contato@virattamarketing.com.br",
-  location: "São Paulo, SP — Atendimento Brasil",
+  email: "vyra.agenciamarketing@gmail.com",
+  location: "Rio de Janeiro",
 };
 
 export const getWhatsAppUrl = (customMessage?: string) => {
@@ -54,31 +54,31 @@ export const VIRATTA_SERVICES = [
     number: "01",
     name: "SOCIAL MEDIA",
     description:
-      "Estratégia, planejamento e gestão para construir uma presença digital consistente e profissional.",
+      "Estratégia e gestão para fortalecer a presença digital do seu negócio local.",
   },
   {
     number: "02",
     name: "FILMMAKER",
     description:
-      "Captação e produção audiovisual para apresentar sua empresa com mais qualidade, personalidade e impacto.",
+      "Conteúdo audiovisual para mostrar seu negócio, seus produtos e sua experiência.",
   },
   {
     number: "03",
     name: "DESIGN GRÁFICO",
     description:
-      "Criativos e materiais visuais que fortalecem a comunicação e a percepção profissional da sua marca.",
+      "Comunicação visual que faz sua empresa parecer mais profissional e reconhecível.",
   },
   {
     number: "04",
     name: "BRANDING / COMUNICAÇÃO VISUAL",
     description:
-      "Construção e organização da identidade visual para tornar sua marca mais reconhecível, coerente e memorável.",
+      "Identidade que diferencia sua empresa no mercado local.",
   },
   {
     number: "05",
     name: "POSICIONAMENTO ESTRATÉGICO",
     description:
-      "Estratégia para definir como sua empresa se apresenta, se comunica e quer ser percebida pelo mercado.",
+      "Clareza sobre como sua empresa deve ser percebida pelo público.",
   },
 ];
 

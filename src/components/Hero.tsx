@@ -8,10 +8,10 @@ export const Hero: React.FC = () => {
   const { getWhatsAppUrl, content } = useCms();
   const copy = content?.copy || ({} as any);
 
-  const kicker = copy.hero_kicker || "VIRATTA MARKETING";
+  const kicker = copy.hero_kicker || "MARKETING PARA COMÉRCIOS LOCAIS";
   const title1 = copy.hero_title_line1 || "SEU NEGÓCIO NÃO PRECISA";
   const title2 = copy.hero_title_line2 || "PARECER PEQUENO.";
-  const subtitle = copy.hero_subtitle || "Estratégia, conteúdo e posicionamento para transformar a forma como sua empresa é percebida.";
+  const subtitle = copy.hero_subtitle || "Estratégia, conteúdo, design e posicionamento para transformar a presença do seu comércio local em percepção de valor.";
   const ctaPrimaryText = copy.hero_cta_primary || "QUERO VIRAR A CHAVE";
   const ctaPrimaryUrl = copy.hero_cta_primary_link || getWhatsAppUrl("Olá! Quero virar a chave da minha marca com a VIRATTA.");
   const ctaSecondaryText = copy.hero_cta_secondary || "VER NOSSOS TRABALHOS";

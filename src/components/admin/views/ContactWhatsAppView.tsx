@@ -47,7 +47,7 @@ export const ContactWhatsAppView: React.FC = () => {
               type="text"
               value={settings.whatsapp_ddd}
               onChange={(e) => handleChange('whatsapp_ddd', e.target.value)}
-              placeholder="11"
+              placeholder="21"
               className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white font-mono text-sm focus:outline-none focus:border-[#FF5E14]"
             />
           </div>
@@ -60,7 +60,7 @@ export const ContactWhatsAppView: React.FC = () => {
               type="text"
               value={settings.whatsapp_number}
               onChange={(e) => handleChange('whatsapp_number', e.target.value)}
-              placeholder="999999999"
+              placeholder="993074326"
               className="w-full px-3.5 py-2.5 rounded-lg bg-black/50 border border-white/10 text-white font-mono text-sm focus:outline-none focus:border-[#FF5E14]"
             />
           </div>

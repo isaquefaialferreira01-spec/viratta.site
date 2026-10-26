@@ -3,7 +3,7 @@ import { VirattaLogo } from './brand/VirattaLogo';
 import { VirattaSymbol } from './brand/VirattaSymbol';
 import { NAV_LINKS, SITE_CONFIG } from '../config/siteConfig';
 import { useCms } from '../context/CmsContext';
-import { Instagram, MessageSquare, ArrowUp, Lock } from 'lucide-react';
+import { Instagram, MessageSquare, ArrowUp, Lock, Mail, MapPin } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { content, getWhatsAppUrl } = useCms();
@@ -12,6 +12,8 @@ export const Footer: React.FC = () => {
   };
 
   const instagramUrl = content?.social?.instagram?.url || SITE_CONFIG.instagramUrl;
+  const email = content?.settings?.email || SITE_CONFIG.email;
+  const location = content?.settings?.location || SITE_CONFIG.location;
   const description = content?.settings?.tagline
     ? `Empresa brasileira de marketing e comunicação estratégica. ${content.settings.tagline}`
     : 'Empresa brasileira de marketing e comunicação estratégica. Destrave a percepção da sua empresa e seja visto pelo valor real do que você entrega.';
@@ -74,6 +76,16 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
+                    href={`mailto:${email}`}
+                    className="inline-flex items-center gap-1.5 min-h-[44px] py-2 px-1 text-xs text-neutral-400 hover:text-[#FF5E14] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] rounded-md"
+                    title={`Enviar e-mail para ${email}`}
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#FF5E14] shrink-0" aria-hidden="true" />
+                    <span className="truncate max-w-[210px]">{email}</span>
+                  </a>
+                </li>
+                <li>
+                  <a
                     href={instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -82,6 +94,10 @@ export const Footer: React.FC = () => {
                     <Instagram className="w-3.5 h-3.5 text-[#FF5E14]" aria-hidden="true" />
                     <span>Instagram</span>
                   </a>
+                </li>
+                <li className="inline-flex items-center gap-1.5 py-2 px-1 text-xs text-neutral-400">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF5E14] shrink-0" aria-hidden="true" />
+                  <span>{location}</span>
                 </li>
               </ul>
             </div>

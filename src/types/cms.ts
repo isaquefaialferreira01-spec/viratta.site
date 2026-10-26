@@ -111,6 +111,7 @@ export interface SectionVisibility {
   marquee_mantra: boolean;
   instagram: boolean;
   faq?: boolean;
+  diagnostic?: boolean;
   final_conversion: boolean;
 }
 
@@ -162,6 +163,17 @@ export interface SiteCopy {
   instagram_kicker?: string;
   instagram_headline?: string;
   instagram_button_text?: string;
+
+  // Diagnostic Section ("O que está travando o seu negócio?")
+  diagnostic_kicker?: string;
+  diagnostic_headline?: string;
+  diagnostic_subtitle?: string;
+  diagnostic_placeholder?: string;
+  diagnostic_suggestions?: string[];
+  diagnostic_response?: string;
+  diagnostic_cta_button?: string;
+  diagnostic_whatsapp_message?: string;
+  diagnostic_microcopy?: string;
 
   // Final Conversion
   final_cta_kicker: string;

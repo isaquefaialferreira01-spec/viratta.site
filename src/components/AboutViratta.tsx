@@ -25,7 +25,7 @@ export const AboutViratta: React.FC = () => {
     <section 
       id="sobre" 
       data-section-title="Sobre a Viratta" 
-      className="relative py-16 sm:py-28 lg:py-36 bg-[#070708] border-b border-white/5 overflow-hidden"
+      className="relative py-12 sm:py-24 lg:py-32 bg-[#070708] border-b border-white/5 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -49,7 +49,7 @@ export const AboutViratta: React.FC = () => {
           </h2>
 
           <p className="mt-3 sm:mt-4 text-lg sm:text-2xl md:text-3xl text-neutral-300 font-light leading-snug">
-            “Estratégia, criatividade e comunicação para negócios que querem crescer sem parecer amadores.”
+            “Estratégia, criatividade e posicionamento para comércios locais que querem crescer sem parecer amadores.”
           </p>
         </motion.div>
 

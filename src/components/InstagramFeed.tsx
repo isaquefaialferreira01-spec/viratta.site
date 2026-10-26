@@ -29,12 +29,12 @@ export const InstagramFeed: React.FC = () => {
     setImageErrors((prev) => ({ ...prev, [id]: true }));
   };
 
-  // Dynamic responsive grid: 3 items are cleanly centered; 4+ span across the full 4 columns
-  const gridLayoutClass = activeItems.length === 3
-    ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-4 sm:gap-6"
+  // Dynamic layout: on mobile, smooth horizontal scroll-snap with next-card peek; on desktop, clean responsive grid
+  const layoutClass = activeItems.length === 3
+    ? "flex sm:grid sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory pb-4 sm:pb-0 px-1 sm:px-0 -mx-1 sm:mx-auto custom-scrollbar"
     : activeItems.length <= 2
-    ? "grid grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto gap-4 sm:gap-6"
-    : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6";
+    ? "flex sm:grid sm:grid-cols-2 max-w-2xl mx-auto gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory pb-4 sm:pb-0 px-1 sm:px-0 -mx-1 sm:mx-auto custom-scrollbar"
+    : "flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory pb-4 sm:pb-0 px-1 sm:px-0 -mx-1 sm:mx-auto custom-scrollbar";
 
   return (
     <section 
@@ -75,8 +75,8 @@ export const InstagramFeed: React.FC = () => {
           </a>
         </motion.div>
 
-        {/* Real Instagram Content Grid */}
-        <div className={gridLayoutClass}>
+        {/* Real Instagram Content Grid / Mobile Carousel */}
+        <div className={layoutClass}>
           {activeItems.map((item, idx) => {
             const targetUrl = item.instagram_url || item.url || instagramUrl;
             
@@ -99,7 +99,7 @@ export const InstagramFeed: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-[#0E0F12] border border-white/10 hover:border-[#FF5E14]/50 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 shadow-xl active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
+                className="group relative w-[82vw] xs:w-[76vw] sm:w-auto shrink-0 snap-center sm:shrink aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-[#0E0F12] border border-white/10 hover:border-[#FF5E14]/50 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 shadow-xl active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14]"
               >
                 {/* Visual Cover Layer: Real Post Image */}
                 {hasValidImage ? (

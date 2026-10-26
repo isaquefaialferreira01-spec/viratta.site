@@ -23,6 +23,27 @@ function normalizeReels(items?: any[]): any[] {
   });
 }
 
+function normalizeSettings(settings?: any) {
+  const merged = { ...DEFAULT_CMS_STATE.settings, ...(settings || {}) };
+  // Seamlessly migrate legacy mock contact data if present in stored sessions
+  if (merged.whatsapp_number === '999999999' || !merged.whatsapp_number) {
+    merged.whatsapp_number = '993074326';
+  }
+  if (merged.whatsapp_ddd === '11' || !merged.whatsapp_ddd) {
+    merged.whatsapp_ddd = '21';
+  }
+  if (merged.whatsapp_country === '55' || !merged.whatsapp_country) {
+    merged.whatsapp_country = '55';
+  }
+  if (merged.email === 'contato@virattamarketing.com.br' || !merged.email) {
+    merged.email = 'vyra.agenciamarketing@gmail.com';
+  }
+  if (merged.location === 'São Paulo, SP — Atendimento Brasil' || !merged.location) {
+    merged.location = 'Rio de Janeiro';
+  }
+  return merged;
+}
+
 /**
  * Apply global brand CSS variables and fonts dynamically to the document root
  */
@@ -80,7 +101,7 @@ export async function fetchPublishedFromSupabase(): Promise<CmsState | null> {
       const remoteState: CmsState = {
         ...DEFAULT_CMS_STATE,
         ...parsed,
-        settings: { ...DEFAULT_CMS_STATE.settings, ...(parsed.settings || {}) },
+        settings: normalizeSettings(parsed.settings),
         social: { ...DEFAULT_CMS_STATE.social, ...(parsed.social || {}) },
         appearance: { ...DEFAULT_CMS_STATE.appearance, ...(parsed.appearance || {}) },
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
@@ -141,7 +162,7 @@ export function getPublishedContent(): CmsState {
       return {
         ...DEFAULT_CMS_STATE,
         ...parsed,
-        settings: { ...DEFAULT_CMS_STATE.settings, ...(parsed.settings || {}) },
+        settings: normalizeSettings(parsed.settings),
         social: { ...DEFAULT_CMS_STATE.social, ...(parsed.social || {}) },
         appearance: { ...DEFAULT_CMS_STATE.appearance, ...(parsed.appearance || {}) },
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
@@ -172,7 +193,7 @@ export function getDraftContent(): CmsState {
       return {
         ...DEFAULT_CMS_STATE,
         ...parsed,
-        settings: { ...DEFAULT_CMS_STATE.settings, ...(parsed.settings || {}) },
+        settings: normalizeSettings(parsed.settings),
         social: { ...DEFAULT_CMS_STATE.social, ...(parsed.social || {}) },
         appearance: { ...DEFAULT_CMS_STATE.appearance, ...(parsed.appearance || {}) },
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },

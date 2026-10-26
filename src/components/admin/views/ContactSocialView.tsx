@@ -124,7 +124,7 @@ export const ContactSocialView: React.FC = () => {
                 type="email"
                 value={settings.email}
                 onChange={(e) => handleSettingsChange('email', e.target.value)}
-                placeholder="contato@virattamarketing.com.br"
+                placeholder="vyra.agenciamarketing@gmail.com"
                 className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/50 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#FF5E14]"
               />
             </div>
@@ -140,7 +140,7 @@ export const ContactSocialView: React.FC = () => {
                 type="text"
                 value={settings.location}
                 onChange={(e) => handleSettingsChange('location', e.target.value)}
-                placeholder="São Paulo, SP — Atendimento Brasil"
+                placeholder="Rio de Janeiro"
                 className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/50 border border-white/10 text-white text-xs focus:outline-none focus:border-[#FF5E14]"
               />
             </div>

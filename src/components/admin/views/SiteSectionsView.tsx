@@ -25,14 +25,8 @@ const SECTIONS_CONFIG: SectionConfigItem[] = [
     recommended: true,
   },
   {
-    key: 'business_needs',
-    label: '03. Diagnóstico Estratégico (Chat Interativo)',
-    description: 'Diagnóstico interativo de necessidades da empresa com direcionamento.',
-    recommended: true,
-  },
-  {
     key: 'numbers',
-    label: '04. Estrutura Criativa & Números',
+    label: '03. Estrutura Criativa & Números',
     description: 'Métricas de captações, produções audiovisuais e marcas atendidas.',
     recommended: true,
   },
@@ -110,8 +104,14 @@ const SECTIONS_CONFIG: SectionConfigItem[] = [
   },
   {
     key: 'faq',
-    label: '17. Perguntas Frequentes (FAQ & SEO)',
+    label: '16. Perguntas Frequentes (FAQ & SEO)',
     description: 'Acordeão de dúvidas frequentes com marcação estruturada para SEO.',
+    recommended: true,
+  },
+  {
+    key: 'diagnostic',
+    label: '17. Diagnóstico do Negócio (O Que Está Travando)',
+    description: 'Campo interativo onde o cliente descreve seu desafio e recebe direcionamento direto no WhatsApp.',
     recommended: true,
   },
   {
