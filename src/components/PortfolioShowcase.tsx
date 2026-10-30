@@ -1,28 +1,44 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useCms } from '../context/CmsContext';
+import { cn } from '../lib/utils';
 
 export interface ClientLogo {
   name: string;
   src: string;
+  cardBg?: 'light' | 'dark';
 }
 
 export const CLIENT_LOGOS: ClientLogo[] = [
   {
     name: "Café & Bistrô Origem",
     src: "/clients/cafe-origem.svg",
+    cardBg: "dark",
   },
   {
     name: "Clínica Lumine Dermatologia",
     src: "/clients/clinica-lumine.svg",
+    cardBg: "dark",
   },
   {
     name: "Iron Box Performance",
     src: "/clients/iron-box.svg",
+    cardBg: "dark",
   },
   {
     name: "Officina Spezial Garage",
     src: "/clients/officina-spezial.svg",
+    cardBg: "dark",
+  },
+  {
+    name: "Leandra Lash Design",
+    src: "https://res.cloudinary.com/zxzce8gr/image/upload/v1793366944/ziy8z2q3bzsw82opmje3.png",
+    cardBg: "light",
+  },
+  {
+    name: "Sabores Brutinhos",
+    src: "https://res.cloudinary.com/zxzce8gr/image/upload/v1793367007/ykjxsifmnlogmfl3xxsq.png",
+    cardBg: "light",
   },
 ];
 
@@ -32,7 +48,11 @@ export const PortfolioShowcase: React.FC = () => {
   // Active logos from CMS or fallback to default
   const activeClients = (content?.clients || []).filter((c) => c.is_active);
   const displayLogos: ClientLogo[] = activeClients.length > 0
-    ? activeClients.map((c) => ({ name: c.name, src: c.logo_url }))
+    ? activeClients.map((c) => ({
+        name: c.name,
+        src: c.logo_url,
+        cardBg: c.card_bg || (c.logo_url.includes('cloudinary') ? 'light' : 'dark'),
+      }))
     : CLIENT_LOGOS;
 
   const copy = content?.copy || ({} as any);
@@ -46,20 +66,34 @@ export const PortfolioShowcase: React.FC = () => {
       aria-hidden={isAriaHidden}
       className="flex items-center gap-4 sm:gap-6 shrink-0"
     >
-      {displayLogos.map((client, idx) => (
-        <div
-          key={`${sequenceKey}-${client.name}-${idx}`}
-          className="group w-36 xs:w-44 sm:w-60 md:w-68 h-16 xs:h-20 sm:h-24 md:h-28 rounded-xl sm:rounded-2xl bg-[#0E0F12] border border-white/5 hover:border-white/10 transition-colors duration-300 p-3 xs:p-4 sm:p-6 flex items-center justify-center shrink-0 select-none shadow-sm"
-        >
-          <img
-            src={client.src}
-            alt={isAriaHidden ? "" : client.name}
-            className="client-logo-img max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      ))}
+      {displayLogos.map((client, idx) => {
+        const isLight = client.cardBg === 'light' || (client as any).card_bg === 'light' || client.src.includes('cloudinary');
+        const isCloudinary = client.src.includes('cloudinary');
+        return (
+          <div
+            key={`${sequenceKey}-${client.name}-${idx}`}
+            className={cn(
+              "group w-36 xs:w-44 sm:w-60 md:w-68 h-16 xs:h-20 sm:h-24 md:h-28 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center shrink-0 select-none shadow-sm overflow-hidden",
+              isLight
+                ? "bg-white border border-white/20 hover:bg-neutral-50 shadow-[0_4px_24px_rgba(255,255,255,0.08)]"
+                : "bg-[#0E0F12] border border-white/5 hover:border-white/10",
+              isCloudinary ? "p-1.5 xs:p-2 sm:p-3" : "p-3 xs:p-4 sm:p-6"
+            )}
+          >
+            <img
+              src={client.src}
+              alt={isAriaHidden ? "" : client.name}
+              className={cn(
+                "max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105",
+                isLight ? "no-invert" : "client-logo-img",
+                isCloudinary ? "scale-125 sm:scale-135" : ""
+              )}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 

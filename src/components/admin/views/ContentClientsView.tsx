@@ -26,12 +26,14 @@ export const ContentClientsView: React.FC = () => {
   const [logoUrl, setLogoUrl] = useState('');
   const [altText, setAltText] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
+  const [cardBg, setCardBg] = useState<'light' | 'dark'>('dark');
 
   const handleOpenAdd = () => {
     setName('');
     setLogoUrl('');
     setAltText('');
     setWebsiteUrl('');
+    setCardBg('dark');
     setEditingId(null);
     setIsAdding(true);
   };
@@ -41,6 +43,7 @@ export const ContentClientsView: React.FC = () => {
     setLogoUrl(client.logo_url);
     setAltText(client.alt_text || '');
     setWebsiteUrl(client.website_url || '');
+    setCardBg(client.card_bg || (client.logo_url?.includes('cloudinary') ? 'light' : 'dark'));
     setEditingId(client.id);
     setIsAdding(true);
   };
@@ -57,6 +60,7 @@ export const ContentClientsView: React.FC = () => {
               logo_url: logoUrl.trim(),
               alt_text: altText.trim() || `Logotipo ${name.trim()}`,
               website_url: websiteUrl.trim(),
+              card_bg: cardBg,
             }
           : c
       );
@@ -70,6 +74,7 @@ export const ContentClientsView: React.FC = () => {
         website_url: websiteUrl.trim(),
         display_order: clients.length + 1,
         is_active: true,
+        card_bg: cardBg || (logoUrl.includes('cloudinary') ? 'light' : 'dark'),
       };
       updateClients([...clients, newClient]);
     }
@@ -229,7 +234,11 @@ export const ContentClientsView: React.FC = () => {
             >
               {/* Logo Preview + Details */}
               <div className="flex items-center gap-3.5 min-w-0">
-                <div className="w-20 sm:w-28 h-12 rounded-lg bg-black border border-white/10 p-2 flex items-center justify-center shrink-0">
+                <div className={`w-20 sm:w-28 h-12 rounded-lg border p-2 flex items-center justify-center shrink-0 ${
+                  client.card_bg === 'light' || client.logo_url?.includes('cloudinary')
+                    ? 'bg-white border-white/20'
+                    : 'bg-black border-white/10'
+                }`}>
                   <img
                     src={client.logo_url}
                     alt={client.name}

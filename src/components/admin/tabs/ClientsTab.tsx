@@ -35,6 +35,7 @@ export const ClientsTab: React.FC = () => {
   const [logoUrl, setLogoUrl] = useState('');
   const [altText, setAltText] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
+  const [cardBg, setCardBg] = useState<'light' | 'dark'>('dark');
 
   // Per-item inline replacement state
   const [replacingId, setReplacingId] = useState<string | null>(null);
@@ -65,6 +66,7 @@ export const ClientsTab: React.FC = () => {
               logo_url: logoUrl.trim(),
               alt_text: altText.trim() || `Logotipo ${name}`,
               website_url: websiteUrl.trim(),
+              card_bg: cardBg,
             }
           : c
       );
@@ -80,6 +82,7 @@ export const ClientsTab: React.FC = () => {
         website_url: websiteUrl.trim(),
         display_order: clients.length + 1,
         is_active: true,
+        card_bg: cardBg || (logoUrl.includes('cloudinary') ? 'light' : 'dark'),
       };
       updateClients([...clients, newClient]);
       showNotification(`"${name}" adicionado ao portfólio!`);
@@ -91,6 +94,7 @@ export const ClientsTab: React.FC = () => {
     setLogoUrl('');
     setAltText('');
     setWebsiteUrl('');
+    setCardBg('dark');
   };
 
   const startEdit = (c: ClientItem) => {
@@ -99,6 +103,7 @@ export const ClientsTab: React.FC = () => {
     setLogoUrl(c.logo_url);
     setAltText(c.alt_text || '');
     setWebsiteUrl(c.website_url || '');
+    setCardBg(c.card_bg || (c.logo_url?.includes('cloudinary') ? 'light' : 'dark'));
     setIsAdding(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -110,6 +115,7 @@ export const ClientsTab: React.FC = () => {
     setLogoUrl('');
     setAltText('');
     setWebsiteUrl('');
+    setCardBg('dark');
   };
 
   const toggleActive = (id: string) => {
@@ -466,7 +472,11 @@ export const ClientsTab: React.FC = () => {
                   </div>
 
                   {/* Logo thumbnail container with replacing overlay */}
-                  <div className="relative w-28 sm:w-36 h-16 sm:h-20 rounded-xl bg-black/80 border border-white/10 p-2 sm:p-3 flex items-center justify-center shrink-0 overflow-hidden shadow-inner group">
+                  <div className={`relative w-28 sm:w-36 h-16 sm:h-20 rounded-xl border p-2 sm:p-3 flex items-center justify-center shrink-0 overflow-hidden shadow-inner group ${
+                    client.card_bg === 'light' || client.logo_url?.includes('cloudinary')
+                      ? 'bg-white border-white/20'
+                      : 'bg-black/80 border-white/10'
+                  }`}>
                     <img
                       src={client.logo_url}
                       alt={client.name}

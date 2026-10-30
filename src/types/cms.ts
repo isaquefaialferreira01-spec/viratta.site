@@ -16,6 +16,7 @@ export interface ClientItem {
   website_url?: string;
   display_order: number;
   is_active: boolean;
+  card_bg?: 'light' | 'dark';
 }
 
 export interface ServiceItem {

@@ -345,8 +345,12 @@ html.light .viratta-logo-img {
 }
 
 /* Inverte marcas parceiras vetorizadas brancas para exibição nítida no fundo claro */
-html.light .client-logo-img {
+html.light .client-logo-img:not(.no-invert) {
   filter: invert(1);
+}
+
+.no-invert {
+  filter: none !important;
 }
 
 /* 6. GLOWS AMBIENTAIS E TEXTURAS DE GRID */

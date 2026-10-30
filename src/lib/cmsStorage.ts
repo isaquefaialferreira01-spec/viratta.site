@@ -23,6 +23,20 @@ function normalizeReels(items?: any[]): any[] {
   });
 }
 
+function normalizeClients(items?: any[]): ClientItem[] {
+  if (!Array.isArray(items) || items.length === 0) {
+    return DEFAULT_CMS_STATE.clients;
+  }
+  const existingUrls = new Set(items.map((c) => c.logo_url));
+  const missingDefaults = DEFAULT_CMS_STATE.clients.filter(
+    (defaultClient) => !existingUrls.has(defaultClient.logo_url) && !items.some((i) => i.id === defaultClient.id)
+  );
+  if (missingDefaults.length > 0) {
+    return [...items, ...missingDefaults];
+  }
+  return items;
+}
+
 function normalizeSettings(settings?: any) {
   const merged = { ...DEFAULT_CMS_STATE.settings, ...(settings || {}) };
   // Seamlessly migrate legacy mock contact data if present in stored sessions
@@ -107,7 +121,7 @@ export async function fetchPublishedFromSupabase(): Promise<CmsState | null> {
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
         copy: { ...DEFAULT_CMS_STATE.copy, ...(parsed.copy || {}) },
         sections: { ...DEFAULT_CMS_STATE.sections, ...(parsed.sections || {}) },
-        clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
+        clients: normalizeClients(parsed.clients),
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
         marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
@@ -168,7 +182,7 @@ export function getPublishedContent(): CmsState {
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
         copy: { ...DEFAULT_CMS_STATE.copy, ...(parsed.copy || {}) },
         sections: { ...DEFAULT_CMS_STATE.sections, ...(parsed.sections || {}) },
-        clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
+        clients: normalizeClients(parsed.clients),
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
         marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
@@ -199,7 +213,7 @@ export function getDraftContent(): CmsState {
         seo: { ...DEFAULT_CMS_STATE.seo, ...(parsed.seo || {}) },
         copy: { ...DEFAULT_CMS_STATE.copy, ...(parsed.copy || {}) },
         sections: { ...DEFAULT_CMS_STATE.sections, ...(parsed.sections || {}) },
-        clients: Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_CMS_STATE.clients,
+        clients: normalizeClients(parsed.clients),
         services: Array.isArray(parsed.services) ? parsed.services : DEFAULT_CMS_STATE.services,
         marquee_items: Array.isArray(parsed.marquee_items) ? parsed.marquee_items : DEFAULT_CMS_STATE.marquee_items,
         marquee_mantra_items: Array.isArray(parsed.marquee_mantra_items) ? parsed.marquee_mantra_items : (DEFAULT_CMS_STATE.marquee_mantra_items || []),
